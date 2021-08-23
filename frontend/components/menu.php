@@ -10,7 +10,7 @@ require_once("header.php");
 		</button>
 
 		<div class="collapse navbar-collapse" id="mainnavbar">
-			<ul class="navbar-nav ms-auto">
+			<ul class="navbar-nav ms-auto pe-5">
 				<li class="nav-item">
 					<a class="nav-link" href="./show.php">Shows</span></a>
 				</li>
@@ -21,7 +21,7 @@ require_once("header.php");
 					<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
 						<li><a class="dropdown-item" href="#">Sign in</a></li>
 						<li><a class="dropdown-item" href="#">Profile</a></li>
-						<li><a class="dropdown-item" href="#">Follows</a></li>
+						<li><a class="dropdown-item" href="#">Lists</a></li>
 						<li>
 							<hr class="dropdown-divider">
 						</li>
