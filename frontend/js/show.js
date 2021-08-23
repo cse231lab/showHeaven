@@ -31,8 +31,11 @@ for(let i = 0; i < 5; i++) {
 	data.push(data[0]);
 }
 
+let showData = "";
+
 for(let dat of data){
-	let me = `
+	let curr = `
+	<li class="list-group-item border-0">
 	<div class="card mb-3" >
 	<div class="row g-0">
 	<div class="col-3">
@@ -47,10 +50,10 @@ for(let dat of data){
 	</div>
 	</div>
 	</div>
+	</li>
 	`;
-	let curr = document.createElement('li');
-	curr.classList = "list-group-item border-0";
-	curr.innerHTML = me;
 
-	showList.appendChild(curr);
+	showData += curr;
 }
+
+showList.innerHTML = showData;
