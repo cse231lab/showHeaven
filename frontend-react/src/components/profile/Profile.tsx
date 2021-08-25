@@ -41,7 +41,7 @@ function Profile(props: Props): JSX.Element {
           </div>
 
           <div className=" border border-5 border-dark rounded dp">
-            <img src = {require("D:/Software/Git repositories/showHeaven/frontend-react/src/geralt.jpg").default}/>
+            <img src = {require("../../geralt.jpg").default}/>
           </div>
 
 
