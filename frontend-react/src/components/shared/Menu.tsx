@@ -25,6 +25,11 @@ function Menu(props: Props): JSX.Element {
                 Shows
               </Link>
             </li>
+            <li className="nav-item">
+              <Link to={Path.PROFILE} className="nav-link" href="#">
+                Profile
+              </Link>
+            </li>
             <li className="nav-item dropdown ">
               <a
                 className="nav-link dropdown-toggle"
