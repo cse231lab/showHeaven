@@ -1,5 +1,9 @@
 export enum Path {
   HOME = "/",
-	SHOW = "/shows",
-	PROFILE = "/profile"
+	SHOW = "/show",
+	PROFILE = "/profile",
+	SHOWLIST = "/showslist",
+	WATCHLIST = "/watchlist",
+	ADMIN =  "/admin",
+	FORGOT = "/forgot",
 }
