@@ -1,4 +1,5 @@
 import "./App.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import Menu from "./components/shared/Menu";
 import Home from "./components/home/Home";
 import Profile from "./components/profile/Profile";
