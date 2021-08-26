@@ -8,7 +8,6 @@ function WatchList(props: Props): JSX.Element {
 
   return <>
   
-  
   WATCHLIST
   </>;
 }
