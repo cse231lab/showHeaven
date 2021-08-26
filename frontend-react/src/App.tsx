@@ -1,4 +1,5 @@
 import "./App.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import Menu from "./components/shared/Menu";
 import Home from "./components/home/Home";
 import Profile from "./components/profile/Profile";
@@ -13,7 +14,7 @@ import Forgot from "./components/auth/Forgot";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App d-flex flex-column align-items-between min-vh-100">
       <Menu />
       <Switch>
         <Route exact path={Path.HOME} component={Home} />

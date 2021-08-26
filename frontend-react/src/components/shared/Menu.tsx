@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Path } from "../../util/constants";
+import Sign from "../auth/Sign";
 
 interface Props {}
 
@@ -66,7 +67,14 @@ function Menu(props: Props): JSX.Element {
               >
                 <li>
                   <a className="dropdown-item" href="#">
-                    Sign in
+                    <button
+                      type="button"
+                      className="btn text-light ps-0"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                    >
+                      Sign in/up
+                    </button>
                   </a>
                 </li>
                 <li>
@@ -92,6 +100,7 @@ function Menu(props: Props): JSX.Element {
           </ul>
         </div>
       </div>
+      <Sign />
     </nav>
   );
 }
