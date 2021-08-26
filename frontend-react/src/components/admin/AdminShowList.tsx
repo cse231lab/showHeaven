@@ -18,13 +18,12 @@ function AdminShowList(props: Props): JSX.Element {
   let shows = [showi];
 
   const handleApprove = (show) => {
-    const entered = prompt('Please enter your yes if you want to keep change?')
-    
-  }
+    const entered = prompt("Please enter your yes if you want to keep change?");
+  };
 
   return (
     <>
-    <div className="d-flex justify-content-between p-3">
+      <div className="d-flex justify-content-between p-3">
         <form action="" className="col-5 d-flex">
           <div className="input-group">
             <label htmlFor="searchField" className="input-group-text">
@@ -48,6 +47,7 @@ function AdminShowList(props: Props): JSX.Element {
             <th scope="col"> # </th>
             <th scope="col">Name</th>
             <th scope="col">Approve</th>
+            <th scope="col">Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -70,10 +70,15 @@ function AdminShowList(props: Props): JSX.Element {
                       type="checkbox"
                       value=""
                       defaultChecked={false}
-                      onChange={()=>handleApprove(show)}
+                      onChange={() => handleApprove(show)}
                       id="flexCheckDefault"
                     />
                   </div>
+                </td>
+                <td>
+                  <button className="btn">
+                    <i className="bi bi-trash-fill"></i>
+                  </button>
                 </td>
               </tr>
             );
