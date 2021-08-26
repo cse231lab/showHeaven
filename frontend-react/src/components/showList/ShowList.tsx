@@ -28,7 +28,7 @@ function ShowList(props: Props): JSX.Element {
     <>
       <div className="container">
         <div className="d-flex justify-content-between p-3">
-          <form action="" className="col-5">
+          <form action="" className="col-5 d-flex">
             <div className="input-group">
               <label htmlFor="searchField" className="input-group-text">
                 Search
@@ -39,6 +39,10 @@ function ShowList(props: Props): JSX.Element {
                 placeholder="Type to search..."
               />
             </div>
+
+            <button className="btn" role="submit">
+              <i className="bi bi-search"></i>
+            </button>
           </form>
 
           <div className="col-2">
