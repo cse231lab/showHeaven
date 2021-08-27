@@ -4,20 +4,29 @@ function Show(props: Props): JSX.Element {
   return <>
     
 
-  <div className="d-flex m-auto shadow-lg bg-light border border-2 border-light w-75  rounded m-3 justify-content-around show">
+  <div className="p-3 d-flex flex-column m-auto shadow-lg bg-light border border-2 border-light w-75  align-items-center rounded m-3 justify-content-around show">
+
+  
+
     
 
-    <div className="d-flex flex-column justify-content-start align-items-start me-3 flex-grow-1 ">
+    <div className="d-flex flex-column justify-content-start align-self-stretch align-items-start me-3 flex-grow-1 ">
       
-      <h1 className="">The Witcher</h1>
+      <h1 className="align-self-center m-2">THE WITCHER</h1>
 
-      <h6>Genre: Drama,Fantasy,Action Fiction, Adventure Fiction, Fantasy Television </h6>
+      <h6 className="align-self-center mb-4">Genre: Drama,Fantasy,Action Fiction, Adventure Fiction, Fantasy Television </h6>
+
+      <div className="mb-4 d-flex justify-content-center align-items-center align-self-center border border-4 border-dark rounded shadow-lg">
+      
+        <img src = {require("../../images/witcher_poster.jpg").default} className="dp"/>
+
+      </div>
 
         <div className="accordion d-flex flex-column   align-self-stretch " id="accordionExample">
 
           <div className="accordion-item  ">
 
-            <h2 className="accordion-header   " id="headingOne">
+            <h2 className="accordion-header  " id="headingOne">
               <button className="accordion-button bg-dark bg-gradient text-white fs-4  " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                 Description
               </button>
@@ -64,7 +73,7 @@ function Show(props: Props): JSX.Element {
                           <div id="collapseseasonOne" className="accordion-collapse collapse show" aria-labelledby="seasonOne" >
                             <div className="accordion-body text-start">               
                             
-                              <div className=" h6 d-flex flex-column flex-grow-1">
+                              <div className="  h6 d-flex flex-column flex-grow-1">
                                 Episode 1: "The End's Beginning"
                               </div>
 
@@ -160,11 +169,7 @@ function Show(props: Props): JSX.Element {
     
 
 
-    <div className="d-flex justify-content-center align-items-center align-self-start border border-4 border-dark rounded shadow-lg">
-      
-      <img src = {require("../../images/witcher_poster.jpg").default} className="dp"/>
-
-    </div>
+    
 
     </div>
 
