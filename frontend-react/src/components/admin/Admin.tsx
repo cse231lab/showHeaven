@@ -11,10 +11,10 @@ interface Props {}
 function Admin(props: Props): JSX.Element {
   return (
     <>
-      <div className="container pt-5 pb-5">
+      <div className="pt-5 pb-5">
         <div className="d-flex">
           <button
-            className="btn btn-secondary"
+            className="btn btn-secondary rounded-0"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#userc"
@@ -24,7 +24,7 @@ function Admin(props: Props): JSX.Element {
             UserList
           </button>
           <button
-            className="btn btn-secondary"
+            className="btn btn-secondary rounded-0"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#showc"
@@ -34,7 +34,7 @@ function Admin(props: Props): JSX.Element {
             Non public show list
           </button>
           <button
-            className="btn btn-secondary"
+            className="btn btn-secondary rounded-0"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#showapp"
