@@ -147,7 +147,7 @@ function ShowList(props: Props): JSX.Element {
         <tbody>
           {data.map((show, index) => {
             return (
-              <tr>
+              <tr >
                 <td className="col-3 col-md-2 col-lg-1">
                   <img
                     src={show.image}
@@ -157,10 +157,10 @@ function ShowList(props: Props): JSX.Element {
                 </td>
                 <td>
                   <a
-                    className="text-decoration-none  link-secondary"
+                    className="text-decoration-none ps-5 d-flex align-items-center  link-secondary"
                     href={Path.SHOW + "?id=" + show.id}
                   >
-                    <h6>{show.title}</h6>
+                    <h6 >{show.title}</h6>
                   </a>
                 </td>
                 <td>{show.rating}</td>
