@@ -5,7 +5,7 @@ interface Props {}
 function Profile(props: Props): JSX.Element {
   return (
     <>
-      <div className=" d-flex  justify-content-around p-3  profilegrid ">
+      <div className=" d-flex flex-sm-column-reverse flex-md-row  justify-content-around p-3  profilegrid ">
         <div className="w-50 d-flex col-6 flex-column border border-2 border-dark rounded">
           <div className="d-flex  p-3 bg-light  ">
             <div className="  col-2 m-3 ">Name:</div>
