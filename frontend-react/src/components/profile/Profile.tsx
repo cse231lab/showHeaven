@@ -11,7 +11,7 @@ function Profile(props: Props): JSX.Element {
             <div className="  col-2 m-3 ">Name:</div>
             <div className="    m-3 ">Sarwar Khalid</div>
           </div>
-          
+
           <div className="d-flex  p-3 bg-light  ">
             <div className="  col-2 m-3 ">Handle:</div>
             <div className="    m-3 ">sarwar450</div>
@@ -56,6 +56,11 @@ function Profile(props: Props): JSX.Element {
         >
           {" "}
           <i className="bi bi-list"></i> Add List{" "}
+        </button>
+
+        <button className="btn" data-bs-toggle="modal" data-bs-target="#editP">
+          {" "}
+          <i className="bi bi-person-lines-fill"></i> Edit Profile{" "}
         </button>
       </div>
 
@@ -145,6 +150,86 @@ function Profile(props: Props): JSX.Element {
                   className="form-control"
                   placeholder="Tittle"
                 />
+                <button className="btn" type="submit">
+                  {" "}
+                  Submit
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="modal fade"
+        id={"editP"}
+        tabIndex={-1}
+        aria-labelledby="authModal"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div className="modal-content pb-3">
+            <div className="modal-header">
+              <div className="modal-title d-flex justify-content-between align-items-center w-100">
+                <h4>Edit Profile</h4>
+
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+            </div>
+            <div className="modal-body">
+              <form action="">
+                <div className="input-group mb-3">
+                  <span className="input-group-text">Name</span>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Name"
+                    value="Sarwar Khalid"
+                  />
+                </div>
+                <div className="input-group mb-3">
+                  <span className="input-group-text">Handle</span>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value="sarwar450"
+                    placeholder="Handle"
+                  />
+                </div>
+                <div className="input-group mb-3">
+                  <span className="input-group-text">Email</span>
+                  <input
+                    type="email"
+                    className="form-control"
+                    value="sarwar@gmail.com"
+                    placeholder="Email"
+                  />
+                </div>
+                <div className="input-group mb-3">
+                  <span className="input-group-text">Password</span>
+                  <input
+                    type="password"
+                    className="form-control"
+                    placeholder="Password"
+                  />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">About</label>
+                  <textarea
+                    className="form-control"
+                    value={`Geralt is a witcher. Shortly after his birth, Geralt's mother, Visenna, gave him away to undergo training and he stronghold of e became a master sword fighter lls used by the witchers.`}
+                  >
+                  </textarea>
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Image</label>
+                  <input className="form-control" type="file" id="formFile" />
+                </div>
                 <button className="btn" type="submit">
                   {" "}
                   Submit

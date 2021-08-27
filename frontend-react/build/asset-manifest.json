@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/static/css/main.93836c43.chunk.css",
+    "main.js": "/static/js/main.0f71cb13.chunk.js",
+    "main.js.map": "/static/js/main.0f71cb13.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.27f78395.js",
+    "runtime-main.js.map": "/static/js/runtime-main.27f78395.js.map",
+    "static/css/2.ee8d6a27.chunk.css": "/static/css/2.ee8d6a27.chunk.css",
+    "static/js/2.aa7999da.chunk.js": "/static/js/2.aa7999da.chunk.js",
+    "static/js/2.aa7999da.chunk.js.map": "/static/js/2.aa7999da.chunk.js.map",
+    "static/js/3.4ae6ad40.chunk.js": "/static/js/3.4ae6ad40.chunk.js",
+    "static/js/3.4ae6ad40.chunk.js.map": "/static/js/3.4ae6ad40.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.ee8d6a27.chunk.css.map": "/static/css/2.ee8d6a27.chunk.css.map",
+    "static/css/main.93836c43.chunk.css.map": "/static/css/main.93836c43.chunk.css.map",
+    "static/js/2.aa7999da.chunk.js.LICENSE.txt": "/static/js/2.aa7999da.chunk.js.LICENSE.txt",
+    "static/media/bootstrap-icons.css": "/static/media/bootstrap-icons.dfd0ea12.woff2",
+    "static/media/geralt.jpg": "/static/media/geralt.01d92317.jpg",
+    "static/media/img1.jpg": "/static/media/img1.5bd8f0e6.jpg",
+    "static/media/witcher_poster.jpg": "/static/media/witcher_poster.1c57e749.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.27f78395.js",
+    "static/css/2.ee8d6a27.chunk.css",
+    "static/js/2.aa7999da.chunk.js",
+    "static/css/main.93836c43.chunk.css",
+    "static/js/main.0f71cb13.chunk.js"
+  ]
+}
