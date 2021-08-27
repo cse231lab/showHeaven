@@ -78,6 +78,11 @@ function IndList(props: Props): JSX.Element {
 
                 <div className="d-flex justify-content-between">
                   <span>
+                    <button className="btn p-0 ">
+                      <i className="bi bi-trash-fill"></i>
+                    </button>
+                  </span>
+                  <span>
                     <button
                       className="btn p-0"
                       data-bs-toggle="modal"
