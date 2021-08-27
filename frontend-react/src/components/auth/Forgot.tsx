@@ -15,7 +15,7 @@ function Forgot(props: Props): JSX.Element {
 
     </div>
 
-    <div className="bg-light  shadow-lg mt-5 mb-5 ps-3 d-flex flex-column w-25 justify-content-center align-items-start  border border-5 border-dark ">
+    <div className=" bg-light shadow-lg mt-5 mb-5 ps-3 d-flex flex-column w-25 justify-content-center align-items-start  border border-5 border-dark ">
       
        <div className="d-flex align-items-start  ">
         <h3 className="fs-2 w-50">Handle: </h3>
