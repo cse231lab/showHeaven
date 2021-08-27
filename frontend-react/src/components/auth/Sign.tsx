@@ -47,6 +47,11 @@ function Sign(props: Props): JSX.Element {
                     </div>
 
                     <div className="valid-feedback">Looks good!</div>
+                    <button className="btn" type="submit">
+                      Forgot Password
+                    </button>
+
+
                     <button className="btn btn-secondary" type="submit">
                       Sign In
                     </button>
@@ -98,6 +103,7 @@ function Sign(props: Props): JSX.Element {
                       <input type="password" className="form-control" />
                     </div>
 
+                    
                     <div className="valid-feedback">Looks good!</div>
                     <button className="btn btn-secondary" type="submit">
                       Sign Up

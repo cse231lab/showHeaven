@@ -16,15 +16,17 @@ function App() {
   return (
     <div className="App d-flex flex-column align-items-between min-vh-100">
       <Menu />
-      <Switch>
-        <Route exact path={Path.HOME} component={Home} />
-        <Route exact path={Path.PROFILE} component={Profile} />
-        <Route exact path={Path.WATCHLIST} component={WatchList} />
-        <Route exact path={Path.SHOWLIST} component={ShowList} />
-        <Route exact path={Path.SHOW} component={Show} />
-        <Route exact path={Path.ADMIN} component={Admin} />
-        <Route exact path={Path.FORGOT} component={Forgot} />
-      </Switch>
+      <div className="container">
+        <Switch>
+          <Route exact path={Path.HOME} component={Home} />
+          <Route exact path={Path.PROFILE} component={Profile} />
+          <Route exact path={Path.WATCHLIST} component={WatchList} />
+          <Route exact path={Path.SHOWLIST} component={ShowList} />
+          <Route exact path={Path.SHOW} component={Show} />
+          <Route exact path={Path.ADMIN} component={Admin} />
+          <Route exact path={Path.FORGOT} component={Forgot} />
+        </Switch>
+      </div>
       <Footer />
     </div>
   );
