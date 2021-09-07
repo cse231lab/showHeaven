@@ -10,8 +10,8 @@ function createUserTable()
 	global $table;
 	global $db;
 	try {
-		$sql = "CREATE table $table(
-  		`id` int,
+		$sql = " CREATE table IF NOT EXISTS $table(
+  		`id` int AUTO_INCREMENT ,
   		`type` int,
   		`name` tinytext,
   		`about` text,
