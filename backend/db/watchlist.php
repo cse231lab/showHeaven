@@ -3,7 +3,7 @@
 require_once("./db.php");
 
 
-$users = "`Users`";
+$watchlist = "watchlist";
 
 function createUserTable()
 {
@@ -55,22 +55,3 @@ function createUser($name, $handle, $email, $password)
 
 createUser("Abi", "abi", "abi", "abi");
 
-function retrieveUser($handle)
-{
-	global $users;
-	global $db;
-
-	try {
-		$sql = "SELECT * from $users where handle=:handle";
-		$prp = $db->prepare($sql);
-		$prp->execute(["handle" => $handle]);
-		$result = $prp->fetch();
-		print("Got user $handle.\n");
-		return $result;
-	} catch (PDOException $e) {
-		echo $e->getMessage(); //Remove or change message in production code
-	}
-	echo "<br>";
-}
-
-var_dump(retrieveUser("Abi"));

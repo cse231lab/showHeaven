@@ -1,16 +1,16 @@
 <?php
 
-require_once("./db.php");
+require_once("../db.php");
 
 
-$season = "Seasons";
+$season = "`Seasons`";
 
 function createSeasonTable()
 {
 	global $season;
 	global $db;
 	try {
-		$sql = "CREATE TABLE `Seasons` (
+		$sql = "CREATE TABLE IF NOT EXISTS $season (
 				  `id` int AUTO_INCREMENT,
 				  `title` varchar(50),
 				  `num` smallint,
@@ -59,7 +59,7 @@ function retrieveSeasonList($show_id)
 	try {
 		$sql = "select * from $season where show_id=:s_id";
 		$prp = $db->prepare($sql);
-		$prp->execute(["s_id" => $season_id]);
+		$prp->execute(["s_id" => $show_id]);
 		$result = $prp->fetchALL();
 		// print("Got season $handle.\n");
 		return $result;
