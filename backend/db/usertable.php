@@ -3,14 +3,14 @@
 require_once("./db.php");
 
 
-$table = "Users";
+$users = "Users";
 
 function createUserTable()
 {
-	global $table;
+	global $users;
 	global $db;
 	try {
-		$sql = " CREATE table IF NOT EXISTS $table(
+		$sql = " CREATE table IF NOT EXISTS $users(
   		`id` int AUTO_INCREMENT ,
   		`type` int,
   		`name` tinytext,
@@ -19,11 +19,11 @@ function createUserTable()
   		`password` tinytext,
   		`image` mediumblob,
   		`created_at` datetime,
-  		`email` tinytext Unique,
+  		`email` tinytext,
   		PRIMARY KEY (`id`)
 		);";
 		$db->exec($sql);
-		print("Created $table Table.\n");
+		print("Created $users Table.\n");
 	} catch (PDOException $e) {
 		echo $e->getMessage(); //Remove or change message in production code
 	}
@@ -35,12 +35,12 @@ createUserTable();
 // @Create User
 function createUser($name, $handle, $email, $password)
 {
-	global $table;
+	global $users;
 	global $db;
 
 	try {
 		$hashed = hash("sha512", $password);
-		$sql = "INSERT INTO $table (name,handle,email,password) 
+		$sql = "INSERT INTO $users (name,handle,email,password) 
 		values(:name,:handle,:email,:hashed)";
 		var_dump($sql);
 		$prp = $db->prepare($sql);
@@ -57,11 +57,11 @@ createUser("Abi", "abi", "abi", "abi");
 
 function retrieveUser($handle)
 {
-	global $table;
+	global $users;
 	global $db;
 
 	try {
-		$sql = "select * from $table where handle=:handle";
+		$sql = "SELECT * from $users where handle=:handle";
 		$prp = $db->prepare($sql);
 		$prp->execute(["handle" => $handle]);
 		$result = $prp->fetch();

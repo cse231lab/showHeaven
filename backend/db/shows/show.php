@@ -33,18 +33,21 @@ function createShowTable()
 // createEpisodeTable();
 
 // @Create User
-function createShow($name,$about,$image,$release,$created_at,$updated_at,$type)
+function createShow($name, $about, $image, $release, $created_at, $updated_at, $type)
 {
 	global $show;
 	global $db;
 
 	try {
-		
+
 		$sql = "INSERT INTO $show (name,about,image,release,created_at,updated_at,type) 
 		values(:name,:about,:image,:release,:created_at,:updated_at,:type)";
 		// var_dump($sql);
 		$prp = $db->prepare($sql);
-		$prp->execute(['name' => $name, 'about' => $about, 'image' => $image,'release' => $release, 'created_at' = >$created_at,'updated_at' => $updated_at,'type' => $type];
+		$prp->execute([
+			'name' => $name, 'about' => $about,
+			'image' => $image, 'release' => $release, 'created_at' => $created_at, 'updated_at' => $updated_at, 'type' => $type
+		]);
 		// print("Created User $handle.\n");
 	} catch (PDOException $e) {
 		echo "ERERE";
@@ -63,7 +66,7 @@ function retrieveShowList()
 	try {
 		$sql = "select * from $show";
 		$prp = $db->prepare($sql);
-		$prp->execute(["s_id" => $season_id]);
+		$prp->execute();
 		$result = $prp->fetchALL();
 		// print("Got season $handle.\n");
 		return $result;
