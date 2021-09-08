@@ -1,16 +1,16 @@
 <?php
 
-require_once("./db.php");
+require_once("../db.php");
 
 
-$show = "Show";
+$show = "`Show`";
 
 function createShowTable()
 {
 	global $show;
 	global $db;
 	try {
-		$sql = "CREATE TABLE `Show` (
+		$sql = "CREATE TABLE IF NOT EXISTS $show (
 				  `id` int AUTO_INCREMENT,
 				  `name` varchar(50),
 				  `about` text,
@@ -23,12 +23,14 @@ function createShowTable()
 				);";
 
 		$db->exec($sql);
-		// print("Created $table Table.\n");
+		//print("Created $show Table.\n");
 	} catch (PDOException $e) {
 		echo $e->getMessage(); //Remove or change message in production code
 	}
 	echo "<br>";
 }
+
+createShowTable();
 
 // createEpisodeTable();
 
