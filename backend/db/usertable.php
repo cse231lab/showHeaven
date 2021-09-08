@@ -61,7 +61,7 @@ function retrieveUser($handle)
 	global $db;
 
 	try {
-		$sql = "select * from $users where handle=:handle";
+		$sql = "SELECT * from $users where handle=:handle";
 		$prp = $db->prepare($sql);
 		$prp->execute(["handle" => $handle]);
 		$result = $prp->fetch();
