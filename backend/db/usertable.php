@@ -3,14 +3,14 @@
 require_once("./db.php");
 
 
-$users = "Users";
+$users = "`Users`";
 
 function createUserTable()
 {
 	global $users;
 	global $db;
 	try {
-		$sql = " CREATE table IF NOT EXISTS $users(
+		$sql = " CREATE table IF NOT EXISTS $users (
   		`id` int AUTO_INCREMENT ,
   		`type` int,
   		`name` tinytext,
