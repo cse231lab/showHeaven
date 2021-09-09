@@ -1,10 +1,22 @@
 <?php
 require_once("./shared/header.php");
+require_once("../backend/db/show.php");
+require_once("../backend/db/season.php");
+require_once("../backend/db/episode.php");
+	
+	// echo $_GET['sid'].'<br>';
+	$res = retrieveShow($_GET['sid']);
+	$szn = retrieveSeasonList($_GET['sid']);
+
+
+
+
 ?>
+
 <div class="p-3 d-flex flex-column m-auto shadow-lg bg-light border border-2 border-light  align-items-center rounded m-3 justify-content-around show">
 	<div class="d-flex flex-column justify-content-start align-self-stretch align-items-start me-3 flex-grow-1 ">
 		<h1 class="align-self-center m-2">
-			THE WITCHER
+			<?php echo $res['name'] ?>;
 			<button class="btn" data-bs-toggle="modal" data-bs-target="#editShow">
 
 				<i class="bi bi-pencil-square"></i> Edit
@@ -31,26 +43,11 @@ require_once("./shared/header.php");
 				<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne">
 					<div class="accordion-body text-start">
 						<div>
-							The Witcher is a Polish-American fantasy drama streaming
-							television series created by Lauren Schmidt Hissrich, based
-							on the book series of the same name by Polish writer Andrzej
-							Sapkowski. Set on a fictional, medieval-inspired landmass
-							known as "the Continent", The Witcher explores the legend of
-							Geralt of Rivia and Princess Ciri, who are linked to each
-							other by destiny.[8] It stars Henry Cavill, Freya Allan and
-							Anya Chalotra. The first season consisted of eight episodes
-							and was released on Netflix in its entirety on December 20,
-							2019. It was based on The Last Wish and Sword of Destiny,
-							which are collections of short stories that precede the main
-							Witcher saga. The second season, consisting of eight
-							episodes, is scheduled to be released on December 17,
-							2021.[9][10] Geralt of Rivia, a solitary monster hunter,
-							struggles to find his place in a world where people often
-							prove more wicked than beasts.
+							<?php echo $res['about'] ?>;
 						</div>
 						<div class="d-flex flex-column pt-5">
 							<span>Rating : 9.8</span>
-							<span>Release : 21/21/1212</span>
+							<span><?php echo $res['release_date'] ?>;</span>
 						</div>
 					</div>
 				</div>
@@ -59,81 +56,42 @@ require_once("./shared/header.php");
 
 		<div class="accordion d-flex flex-column mt-1  align-self-stretch " id="accordionExample">
 			<div class="accordion-item  ">
-				<h2 class="accordion-header   " id="headingTwo">
-					<button class="accordion-button bg-dark bg-gradient text-white fs-4  " type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+				<h2 class="accordion-header   " id="headingSeason">
+					<button class="accordion-button bg-dark bg-gradient text-white fs-4  " type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeason" aria-expanded="true" aria-controls="collapseSeason">
 						Seasons
 					</button>
 				</h2>
 
-				<div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo">
+				<div id="collapseSeason" class="accordion-collapse collapse show" aria-labelledby="headingSeason">
 					<div class="accordion-body text-start">
-						<div class="accordion d-flex flex-column   align-self-stretch " id="accordionExample">
-							<div class="accordion-item  ">
-								<h2 class="accordion-header   " id="seasonOne">
-									<button class="accordion-button bg-light bg-gradient text-dark border border-2 border-dark rounded fs-4  " type="button" data-bs-toggle="collapse" data-bs-target="#collapseseasonOne" aria-expanded="true" aria-controls="collapseseasonOne">
-										Season 1
-										<button class="btn" data-bs-toggle="modal" data-bs-target="#editSeason">
 
-											<i class="bi bi-pencil-square"></i> Edit
-										</button>
-									</button>
-								</h2>
+						<?php 
 
-								<div id="collapseseasonOne" class="accordion-collapse collapse show" aria-labelledby="seasonOne">
-									<div class="accordion-body text-start">
-										<div class="  h6 d-flex flex-column flex-grow-1">
-											Episode 1: "The End's Beginning"
-										</div>
+						
 
-										<div class=" h6 d-flex flex-column flex-grow-1 mt-2">
-											Episode 2: "Four Marks"
-										</div>
+						foreach($szn as $x)
+						{
+							$epsd = retrieveEpisodeList($x['id']);
+							echo "  <div>
+										<div class=\"p-3 border-bottom border-2 border-dark font-weight-bold\">
+										".$x['title'].'<br>'."
+										</div>";
+											foreach($epsd as $ep)
+											{
+												echo "
+													<div class=\" ps-3 m-2 bg-light bg-gradient \">
+														".$ep['num'].") ".$ep['title']."
+													</div>
+													";
+											}
+							echo " 	</div>";
+							
+						}
 
-										<div class=" h6 d-flex flex-column flex-grow-1 mt-2">
-											Episode 3: "Betrayer Moon"
-										</div>
-
-										<div class=" h6 d-flex flex-column flex-grow-1 mt-2">
-											Episode 4: "Of Banquets, Bastards and Burials"
-										</div>
-
-										<div class=" h6 d-flex flex-column flex-grow-1 mt-2">
-											Episode 5: "Bottled Appetites"
-										</div>
-
-										<div class=" h6 d-flex flex-column flex-grow-1 mt-2">
-											Episode 6: "Rare Species"
-										</div>
-
-										<div class=" h6 d-flex flex-column flex-grow-1 mt-2">
-											Episode 7: "Before a Fall"
-										</div>
-
-										<div class=" h6 d-flex flex-column flex-grow-1 mt-2">
-											Episode 8: "Much More"
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="accordion d-flex flex-column   align-self-stretch " id="accordionExample">
-							<div class="accordion-item  ">
-								<h2 class="accordion-header   " id="seasonTwo">
-									<button class="accordion-button bg-light bg-gradient text-dark border border-2 border-dark rounded fs-4   " type="button" data-bs-toggle="collapse" data-bs-target="#collapseseasonTwo" aria-expanded="true" aria-controls="collapseseasonTwo">
-										Season 2
-										<button class="btn" data-bs-toggle="modal" data-bs-target="#editSeason">
-
-											<i class="bi bi-pencil-square"></i> Edit
-										</button>
-									</button>
-								</h2>
-
-								<div id="collapseseasonTwo" class="accordion-collapse collapse show" aria-labelledby="seasonTwo">
-									<div class="accordion-body text-start"></div>
-								</div>
-							</div>
-						</div>
+						?>
+						
+						
+							
 					</div>
 				</div>
 			</div>
@@ -142,7 +100,7 @@ require_once("./shared/header.php");
 		<div class="accordion d-flex flex-column mt-1  align-self-stretch " id="accordionExample">
 			<div class="accordion-item  ">
 				<h2 class="accordion-header   " id="headingTwo">
-					<button class="accordion-button bg-dark bg-gradient text-white fs-4  " type="button" data-bs-toggle="collapse" data-bs-target="#collapsecast" aria-expanded="true" aria-controls="collapseTwo">
+					<button class="accordion-button bg-dark bg-gradient text-white fs-4  " type="button" data-bs-toggle="collapse" data-bs-target="#collapsecast" aria-expanded="true" aria-controls="collapsecast">
 						Cast
 					</button>
 				</h2>
@@ -281,6 +239,8 @@ require_once("./shared/header.php");
 		</div>
 	</div>
 </div>
+
+
 
 <div class="modal fade" id="makecomment" tabIndex="-1" aria-labelledby="authModal" aria-hidden="true">
 	<div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
@@ -441,6 +401,8 @@ require_once("./shared/header.php");
 		</div>
 	</div>
 </div>
+
+
 
 <?php
 require_once("./shared/footer.php");
