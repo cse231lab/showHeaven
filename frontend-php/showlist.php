@@ -1,5 +1,6 @@
 <?php
 require_once("./shared/header.php");
+require_once("../backend/db/show.php");
 ?>
 <div>
 	<form class="d-flex justify-content-between p-3">
@@ -52,6 +53,9 @@ require_once("./shared/header.php");
 	</thead>
 	<tbody>
 		<?php
+		$res = retrieveShowList();
+		foreach($res as $val)
+		{
 
 		echo "
 		<tr>
@@ -59,12 +63,12 @@ require_once("./shared/header.php");
 				<img src=\"./images/img1.jpg\" class=\"img-fluid rounded-start\" alt=\"...\" />
 			</td>
 			<td>
-				<a class=\"text-decoration-none ps-5 d-flex align-items-center  link-secondary\" href=\"?id=\">
-					<h6>title</h6>
+				<a class=\"text-decoration-none ps-5 d-flex align-items-center  link-secondary\" href=\"show.php?sid=".$val['id']."\">
+					<h6>".$val['name']."</h6>
 				</a>
 			</td>
 			<td>9.8</td>
-			<td>32432/3423;234/</td>
+			<td>".$val['release_date']."</td>
 			<td>
 				<button class=\"text-decoration-none btn link-secondary\">
 					<h5>
@@ -73,6 +77,8 @@ require_once("./shared/header.php");
 				</button>
 			</td>
 		</tr>";
+		}
+
 		?>
 	</tbody>
 </table>

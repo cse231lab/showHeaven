@@ -1,7 +1,7 @@
 <?php
 
-echo 'episode included';
-require_once("../db.php");
+echo'episode included'."<br>";
+require_once("db.php");
 
 
 $episode = "`Episodes`";
@@ -17,7 +17,7 @@ function createEpisodeTable()
 			  `season_id` int,
 			  `title` tinytext,
 			  PRIMARY KEY (`id`),
-			  FOREIGN KEY (`season_id`) REFERENCES `Seasons`(`id`)
+			  FOREIGN KEY (`season_id`) REFERENCES `Seasons`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 			);";
 
 		$db->exec($sql);
@@ -59,10 +59,10 @@ function retrieveEpisodeList($season_id)
 	global $db;
 
 	try {
-		$sql = "select * from $episode where season_id=:s_id";
+		$sql = "select * from $episode where season_id=:s_id ORDER BY num";
 		$prp = $db->prepare($sql);
 		$prp->execute(["s_id" => $season_id]);
-		$result = $prp->fetchALL();
+		$result = $prp->fetchALL(PDO::FETCH_ASSOC);
 		// print("Got season $handle.\n");
 		return $result;
 	} catch (PDOException $e) {

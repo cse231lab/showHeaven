@@ -1,8 +1,7 @@
 <?php
 
-echo 'season included';
-
-require_once("../db.php");
+echo'season included'."<br>";
+require_once("db.php");
 
 
 $season = "`Seasons`";
@@ -12,12 +11,13 @@ function createSeasonTable()
 	global $season;
 	global $db;
 	try {
-		$sql = "CREATE TABLE IF NOT EXISTS $season (
+		$sql = "CREATE TABLE IF NOT EXISTS `Seasons` (
 				  `id` int AUTO_INCREMENT,
 				  `title` varchar(50),
 				  `num` smallint,
 				  `show_id` int,
-				  PRIMARY KEY (`id`)
+				  PRIMARY KEY (`id`),
+				  FOREIGN KEY (`show_id`) REFERENCES `Showz`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 				);";
 
 		$db->exec($sql);
@@ -62,7 +62,7 @@ function retrieveSeasonList($show_id)
 		$sql = "select * from $season where show_id=:s_id";
 		$prp = $db->prepare($sql);
 		$prp->execute(["s_id" => $show_id]);
-		$result = $prp->fetchALL();
+		$result = $prp->fetchALL(PDO::FETCH_ASSOC);
 		// print("Got season $handle.\n");
 		return $result;
 	} catch (PDOException $e) {
