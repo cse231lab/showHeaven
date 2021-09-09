@@ -16,6 +16,6 @@ function dropTable($table)
 }
 
 dropTable("Users");
-dropTable("Show");
+dropTable("Showz");
 dropTable("Seasons");
 dropTable("Episodes");
