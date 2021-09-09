@@ -12,13 +12,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		// Get file info 
 		$tempname = $_FILES["image"]["tmp_name"];
 		$filename = basename($_FILES["image"]["name"]);
-		$folder = "images/" . $filename;
+		$milliseconds = strval(round(microtime(true) * 1000));
+		$folder = "images/" . $_POST["handle"] . $milliseconds . $filename;
 		$fileType = pathinfo($filename, PATHINFO_EXTENSION);
 		$allowTypes = array('jpg', 'png', 'jpeg', 'gif');
 
 		if (in_array($fileType, $allowTypes)) {
 			if (move_uploaded_file($tempname, $folder)) {
 				$msg = "Image uploaded successfully";
+				$curr = getUserImage($_POST["handle"]);
+				unlink($curr["image"]);
 				updateImage($_POST["handle"], $folder);
 			} else {
 				$msg = "Failed to upload image";

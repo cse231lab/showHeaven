@@ -137,6 +137,24 @@ function getAllUser($search = "")
 	}
 }
 
+function getUserImage($handle)
+{
+	global $users;
+	global $db;
+	try {
+		$sql = "SELECT image from $users where handle=:handle";
+
+		$prp = $db->prepare($sql);
+		$prp->execute(["handle" => $handle]);
+		$result = $prp->fetch();
+		return $result;
+	} catch (PDOException $e) {
+		echo "Failed To retrieve User <br>";
+		return "";
+		// echo $e->getMessage(); //Remove or change message in production code
+	}
+}
+
 //var_dump(retrieveUser("Abi"));
 function updateType($handle, $val)
 {
