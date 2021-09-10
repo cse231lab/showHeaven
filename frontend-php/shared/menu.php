@@ -19,11 +19,20 @@
 						Show
 					</a>
 				</li>
-				<li class="nav-item">
-					<a href="./profile.php" class="nav-link">
-						Profile
-					</a>
-				</li>
+
+				<?php
+
+				if (isset($_SESSION["handle"]) && $_SESSION["handle"] != "") {
+					echo "
+		<li class=\"nav-item\">
+			<a href=\"./profile.php?handle=" . $_SESSION["handle"] . "\" class=\"nav-link\">
+			" . $_SESSION["handle"] . "
+			</a>
+		</li>";
+				}
+				?>
+
+			
 				<li class="nav-item">
 					<a href="./admin.php" class="nav-link">
 						Admin

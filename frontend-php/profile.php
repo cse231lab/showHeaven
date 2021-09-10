@@ -54,7 +54,7 @@ require_once("./shared/header.php");
 </div>
 
 <div class="d-flex flex-column">
-	<h5 class="text-start">@sarwar450 's Lists</h5>
+	<h5 class="text-start">@<?php echo $user["handle"]; ?>'s Lists</h5>
 	<div class="d-flex row">
 		<?php
 
@@ -69,18 +69,17 @@ require_once("./shared/header.php");
 </div>
 
 <div class="d-flex flex-column pb-5">
-	<h5 class="text-start">@sarwar450 's Follows</h5>
+	<h5 class="text-start">@<?php echo $user["handle"]; ?>'s Follows</h5>
 	<div class="d-flex row">
 		<?php
+		require_once("./Indlist.php");
+		require_once("../backend/db/watchlist.php");
 
-			require_once("./Indlist.php");
-			require_once("../backend/db/watchlist.php");
+		$follows = getFollow($user["id"]);
 
-			$follows = getFollow($user["id"]);
-
-			foreach ($follows as $key => $value) {
-				indList($value);
-			}
+		foreach ($follows as $key => $value) {
+			indList($value);
+		}
 
 		?>
 	</div>
