@@ -5,7 +5,7 @@
 require_once("db.php");
 
 
-$show = "`Showz`";
+
 
 
 function createShowTable()
@@ -65,7 +65,7 @@ function createShow($name, $about,$image, $release, $type,$imdb_textfield)
 
 // createUser("Abi", "abi", "abi", "abi");
 
-function retrieveShowList($s)
+function retrieveShowList($s='')
 {
 	global $show;
 	global $db;
