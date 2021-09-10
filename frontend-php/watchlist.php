@@ -1,5 +1,13 @@
 <?php
 require_once("./shared/header.php");
+
+$handle = "";
+$search = "";
+require_once("../backend/db/watchlist.php");
+require_once("./Indlist.php");
+
+$res = getList($handle, $search);
+
 ?>
 
 <div>
@@ -30,9 +38,9 @@ require_once("./shared/header.php");
 
 	<div class="list row flex-wrap">
 		<?php
-		require_once("./Indlist.php");
-		for ($d = 0; $d < 5; $d++) {
-			indList($d);
+
+		foreach ($res as $key => $value) {
+			indList($value);
 		}
 		// <IndList id={id} key={id} />
 		?>

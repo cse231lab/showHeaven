@@ -199,8 +199,10 @@ function userLogIn($handle, $password)
 		$prp->execute(["handle" => $handle, "password" => $hashed]);
 		$result = $prp->fetch();
 		//print("Got user $handle.\n");
-		if (!empty($result))
+		if (!empty($result)) {
 			$_SESSION["handle"] = $handle;
+			$_SESSION["id"] = $result["id"];
+		}
 		return true;
 	} catch (PDOException $e) {
 		echo "Failed To retrieve User <br>";

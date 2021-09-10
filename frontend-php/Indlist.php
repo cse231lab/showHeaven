@@ -1,8 +1,6 @@
 <?php
 function indList($list)
 {
-  var_dump($list);
-
   $modalId = "\"#listModal-" . $list["id"] . '"';
   $editModalId = "\"#editListModal-" . $list["id"] . '"';
 
@@ -11,10 +9,17 @@ function indList($list)
         <div class=\"card text-dark bg-light mb-3\">
           <div class=\"card-header d-flex justify-content-between\">
             <span>
-              <button class=\"btn p-0\">
+            <form method=\"post\"  action=\"./watchlistupdate.php\" id=\"fav-list-" . $list["id"] . "\">
+              <input type=\"text\" name=\"add_list_id\" class=\"d-none\" value=\"" .  $list["id"] . "\" />
+              " . (isset($_SESSION["id"]) && $_SESSION["id"] != -1 ?
+    "<input type=\"text\" name=\"user_id\" class=\"d-none\" value=\"" .  $_SESSION["id"] . "\" />"
+    : "") .
+    "
+              <button class=\"btn p-0\" type=\"submit\" form=\"fav-list-" . $list["id"] . "\">
                 <i class=\"bi bi-heart-fill\"></i>
               </button>
               " . $list["follow"] . "
+              </form>
             </span>
             <span>
               By
