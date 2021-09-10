@@ -1,6 +1,5 @@
 <?php
 require_once("./shared/header.php");
-
 ?>
 
 <div class="pt-5 pb-5">

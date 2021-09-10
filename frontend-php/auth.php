@@ -11,17 +11,17 @@
 				<div class="d-flex">
 					<div class="col-6 pe-2 border-end d-flex flex-column">
 						<h5 class="border-bottom border-2 pb-1">Sign In</h5>
-						<form method="post" action="./authform.php">
+						<form action="">
 							<div class="input-group mb-3">
 								<span class="input-group-text">
-									handle
+									handle/email
 								</span>
-								<input type="text" class="form-control" name="info" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+								<input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
 							</div>
 
 							<div class="input-group mb-3">
 								<span class="input-group-text">Password</span>
-								<input type="password" name="password" class="form-control" />
+								<input type="password" class="form-control" />
 							</div>
 
 							<div class="valid-feedback">Looks good!</div>
@@ -37,30 +37,30 @@
 					</div>
 					<div class="col-6 ps-2">
 						<h5 class="border-bottom border-2 pb-1">Sign Up</h5>
-						<form method="post" action="./authform.php">
+						<form action="">
 							<div class="input-group mb-3">
 								<span class="input-group-text">
 									Name
 								</span>
-								<input type="text" class="form-control" required name="name" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+								<input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
 							</div>
 							<div class="input-group mb-3">
 								<span class="input-group-text">
 									handle
 								</span>
-								<input type="text" class="form-control" required name="handle" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+								<input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
 							</div>
 
 							<div class="input-group mb-3">
 								<span class="input-group-text">
 									email
 								</span>
-								<input type="email" class="form-control" required name="email" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+								<input type="email" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
 							</div>
 
 							<div class="input-group mb-3">
 								<span class="input-group-text">Password</span>
-								<input type="password" class="form-control" required name="password" />
+								<input type="password" class="form-control" />
 							</div>
 
 

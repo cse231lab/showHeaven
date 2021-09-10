@@ -1,4 +1,17 @@
+<div class="d-flex justify-content-between p-3">
+	<form action="" class="col-5 d-flex">
+		<div class="input-group">
+			<label htmlFor="searchField" class="input-group-text">
+				Search
+			</label>
+			<input class="form-control" id="searchField" placeholder="Type to search..." />
+		</div>
 
+		<button class="btn" role="submit">
+			<i class="bi bi-search"></i>
+		</button>
+	</form>
+</div>
 <table class="table">
 	<thead>
 		<tr>
