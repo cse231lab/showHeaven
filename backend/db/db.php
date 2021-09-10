@@ -10,6 +10,7 @@ $list = "`List`";
 $list_items = "`List_items`";
 $follow = "`Follow`";
 $users = "`Users`";
+$show = "`Showz`";
 
 try {
 	$dbname = "mydb";
