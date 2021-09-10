@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-
-<?php session_start(); ?>
 <html lang="en">
 
 <head>
@@ -15,7 +13,7 @@
 
 <body>
 	<div className="App d-flex flex-column align-items-between min-vh-100">
-
+		
 		<?php
 		require_once(__DIR__ . "/menu.php");
 		?>

@@ -1,3 +1,4 @@
+
 <?php
 require_once("../backend/db/usertable.php");
 
@@ -24,13 +25,14 @@ $result = getAllUser($query);
 
 ?>
 
+
 <div class="d-flex justify-content-between p-3">
-	<form method="get" class="col-5 d-flex">
+	<form action="" class="col-5 d-flex">
 		<div class="input-group">
 			<label htmlFor="searchField" class="input-group-text">
 				Search
 			</label>
-			<input class="form-control" value="<?php echo $query; ?>" name="query" id="searchField" placeholder="Type to search..." />
+			<input class="form-control" id="searchField" placeholder="Type to search..." />
 		</div>
 
 		<button class="btn" role="submit">
@@ -44,12 +46,14 @@ $result = getAllUser($query);
 			<th scope="col"> # </th>
 			<th scope="col">handle</th>
 			<th scope="col">Name</th>
+			<th scope="col">Is Moderator</th>
 			<th scope="col">Is Admin</th>
 			<th scope="col">Delete</th>
 
 		</tr>
 	</thead>
 	<tbody>
+
 		<?php
 		foreach ($result as $key => $value) {
 			# code...
@@ -82,5 +86,7 @@ $result = getAllUser($query);
 			";
 		}
 		?>
+
+		
 	</tbody>
 </table>

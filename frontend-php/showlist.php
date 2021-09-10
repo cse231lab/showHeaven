@@ -3,13 +3,13 @@ require_once("./shared/header.php");
 require_once("../backend/db/show.php");
 ?>
 <div>
-	<form class="d-flex justify-content-between p-3">
+	<form class="d-flex justify-content-between p-3 " METHOD='GET' action = ''  >
 		<div class="col-5 d-flex">
 			<div class="input-group">
 				<label htmlFor="searchField" class="input-group-text">
 					Search
 				</label>
-				<input class="form-control" id="searchField" placeholder="Type to search..." />
+				<input class="form-control" id="searchField" placeholder="Type to search..." name="search" />
 			</div>
 
 			<button class="btn" type="submit">
@@ -18,12 +18,12 @@ require_once("../backend/db/show.php");
 		</div>
 
 		<div class="col-2">
-			<div class="input-group">
+			<div class="input-group" >
 				<label class="input-group-text" htmlFor="inputGroupSelect01">
 					Sort By
 				</label>
-				<select class="form-select" id="inputGroupSelect01">
-					<option value="title">Tittle</option>
+				<select class="form-select" id="inputGroupSelect01 " name="order">
+					<option value="title">Title</option>
 					<option value="release">Release</option>
 					<option value="rating">Rating</option>
 				</select>
@@ -36,7 +36,7 @@ require_once("../backend/db/show.php");
 				<label htmlFor="searchField" class="input-group-text">
 					Tags
 				</label>
-				<input class="form-control" id="searchField" placeholder="Type to search..." />
+				<input class="form-control" id="searchField" placeholder="Type to search..." name="tags"/>
 			</div>
 		</div>
 	</form>
