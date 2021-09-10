@@ -72,10 +72,15 @@ require_once("./shared/header.php");
 	<h5 class="text-start">@sarwar450 's Follows</h5>
 	<div class="d-flex row">
 		<?php
-		indList(69);
-		indList(69);
-		indList(69);
-		indList(69);
+
+			require_once("./Indlist.php");
+			require_once("../backend/db/watchlist.php");
+
+			$follows = getFollow($user["id"]);
+
+			foreach ($follows as $key => $value) {
+				indList($value);
+			}
 
 		?>
 	</div>
