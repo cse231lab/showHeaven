@@ -2,6 +2,8 @@
 
 require_once("db.php");
 
+$show = "`Showz`";
+
 function createListTable()
 {
 	global $list;
@@ -169,7 +171,7 @@ function getFollow($id)
 		) as follow 
 		from $list l  
 		join $users u on (l.user_id = u.id) 
-		join $follow f on (f.list_id = l.id and f.user_id = u.id)
+		join $follow f on (f.list_id = l.id)
 		where f.user_id=:id
 		ORDER BY follow desc
 		";
@@ -181,5 +183,44 @@ function getFollow($id)
 	} catch (PDOException $e) {
 		echo   $e->getMessage(); //Remove or change message in production code
 		return array();
+	}
+}
+
+function getListItems($list_id)
+{
+	global $db;
+	global $list_items;
+	global $show;
+
+	try {
+		$sql = "SELECT l.show_id as show_id,l.list_id as list_id, s.image,s.name
+		FROM $list_items l
+		JOIN $show s
+		ON (s.id = l.show_id)
+		where  l.list_id = :listId
+		";
+
+		$prp = $db->prepare($sql);
+		$prp->execute(['listId' => $list_id]);
+		$result = $prp->fetchAll();
+		return $result;
+	} catch (PDOException $e) {
+		echo   $e->getMessage(); //Remove or change message in production code
+		return array();
+	}
+}
+
+function deleteListItems($list_id, $show_id)
+{
+	global $db;
+	global $list_items;
+
+	try {
+		$sql = "DELETE FROM $list_items WHERE show_id=:showId and list_id=:listId";
+
+		$prp = $db->prepare($sql);
+		$prp->execute(['listId' => $list_id, 'showId' => $show_id]);
+	} catch (PDOException $e) {
+		echo   $e->getMessage(); //Remove or change message in production code
 	}
 }

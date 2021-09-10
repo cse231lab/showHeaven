@@ -25,7 +25,7 @@
 					echo "
 		<li class=\"nav-item\">
 			<a href=\"./profile.php?handle=" . $_SESSION["handle"] . "\" class=\"nav-link\">
-				Profile
+			" . $_SESSION["handle"] . "
 			</a>
 		</li>";
 				}

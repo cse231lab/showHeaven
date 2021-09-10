@@ -7,14 +7,16 @@ if (isset($_GET["query"]) == true) {
 }
 
 if (isset($_POST["handleCheck"])) {
-	if (isset($_POST["userstatus"])) updateType($_POST["handle"], 1);
+	if (isset($_POST["userstatus"])) updateType($_POST["handleCheck"], 1);
 	else updateType($_POST["handleCheck"], 0);
-	redirect("");
+	echo "<meta http-equiv='refresh' content='0'>";
+
 }
 
 if (isset($_POST["handleDelete"])) {
 	deleteUser($_POST["handleDelete"]);
-	redirect("");
+	echo "<meta http-equiv='refresh' content='0'>";
+
 }
 
 
@@ -53,7 +55,6 @@ $result = getAllUser($query);
 			# code...
 
 			//var_dump($value);
-			echo $value["handle"];
 			echo " 
 			<tr>
 				<td>$key</td>
