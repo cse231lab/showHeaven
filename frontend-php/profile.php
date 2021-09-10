@@ -1,39 +1,51 @@
 <?php
 require_once("./shared/header.php");
+require_once("./functions.php");
+
+
+if (!isset($_GET["handle"])) {
+	redirect("./showlist.php");
+}
+
+$handle = $_GET["handle"];
+
+require_once("../backend/db/usertable.php");
+$user = retrieveUser($handle);
+if ($user == false) {
+	redirect("./showlist.php");
+}
 ?>
 
 <div class=" d-flex flex-sm-column-reverse flex-md-row  justify-content-around p-3  profilegrid ">
 	<div class="w-50 d-flex col-6 flex-column border border-2 border-dark rounded">
 		<div class="d-flex  p-3 bg-light  ">
 			<div class="  col-2 m-3 ">Name:</div>
-			<div class="    m-3 ">Sarwar Khalid</div>
+			<div class="    m-3 "><?php echo $user["name"]; ?></div>
 		</div>
 
 		<div class="d-flex  p-3 bg-light  ">
 			<div class="  col-2 m-3 ">Handle:</div>
-			<div class="    m-3 ">sarwar450</div>
+			<div class="    m-3 "><?php echo $user["handle"]; ?></div>
 		</div>
 
 		<div class="d-flex  p-3   ">
 			<div class="  col-2 m-3 ">Email:</div>
-			<div class="    m-3 ">sarwar@gmail.com</div>
+			<div class="    m-3 "><?php echo $user["email"]; ?></div>
 		</div>
 
 		<div class="d-flex  p-3 bg-light  ">
 			<div class="  col-2 m-3 ">Joined at:</div>
-			<div class="    m-3 ">09-02-2000</div>
+			<div class="    m-3 "><?php echo $user["created_at"]; ?></div>
 		</div>
 	</div>
 
 	<div class="m-auto col-6 ps-3 d-flex flex-column justify-content-center">
 		<div class=" border border-5 border-dark rounded dp">
-			<img src="./images/geralt.jpg" />
+			<img src=" <?php echo $user['image']; ?>" />
 		</div>
 
 		<div class="d-flex  p-3 ">
-			Geralt is a witcher. Shortly after his birth, Geralt's mother,
-			Visenna, gave him away to undergo training and he stronghold of e
-			became a master sword fighter lls used by the witchers.
+			<?php echo $user["about"]; ?>
 		</div>
 	</div>
 </div>
@@ -59,10 +71,13 @@ require_once("./shared/header.php");
 		<?php
 
 		require_once("./Indlist.php");
-		indList(69);
-		indList(69);
-		indList(69);
-		indList(69);
+		require_once("../backend/db/watchlist.php");
+
+		$res = getList($user["handle"]);
+
+		foreach ($res as $key => $value) {
+			indList($value);
+		}
 
 		?>
 	</div>
@@ -115,12 +130,10 @@ require_once("./shared/header.php");
 				</div>
 			</div>
 			<div class="modal-body">
-				<form action="">
-					<input type="text" class="form-control" placeholder="Tittle" />
-					<button class="btn" type="submit">
-
-						Submit
-					</button>
+				<form action="./watchlistupdate.php" method="POST">
+					<input type="text" name="user_id" class="d-none" value="<?php echo $user["id"]; ?>" />
+					<input type="text" name="title" class="form-control" placeholder="Tittle" />
+					<input class="btn" type="submit" name="addlist">
 				</form>
 			</div>
 		</div>
@@ -138,34 +151,32 @@ require_once("./shared/header.php");
 				</div>
 			</div>
 			<div class="modal-body">
-				<form action="">
+				<form action="./profileupdate.php" method="post" enctype="multipart/form-data">
 					<div class="input-group mb-3">
 						<span class="input-group-text">Name</span>
-						<input type="text" class="form-control" placeholder="Name" value="Sarwar Khalid" />
+						<input type="text" name="name" class="form-control" placeholder="Name" value="<?php echo $user["name"]; ?>" />
 					</div>
 					<div class="input-group mb-3">
 						<span class="input-group-text">Handle</span>
-						<input type="text" class="form-control" value="sarwar450" placeholder="Handle" />
+						<input type="text" name="handle" class="form-control" value="<?php echo $user["handle"]; ?>" placeholder="Handle" readonly />
 					</div>
 					<div class="input-group mb-3">
 						<span class="input-group-text">Email</span>
-						<input type="email" class="form-control" value="sarwar@gmail.com" placeholder="Email" />
+						<input type="email" name="email" class="form-control" value="<?php echo $user["email"]; ?>" placeholder="Email" />
 					</div>
 					<div class="input-group mb-3">
 						<span class="input-group-text">Password</span>
-						<input type="password" class="form-control" placeholder="Password" />
+						<input type="password" name="password" class="form-control" placeholder="Keep empty if you don't plan to change" />
 					</div>
 					<div class="mb-3">
 						<label class="form-label">About</label>
-						<textarea class="form-control" value="Geralt is a witcher. Shortly after his birth, Geralt's mother, Visenna, gave him away to undergo training and he stronghold of e became a master sword fighter lls used by the witchers.">
-                  </textarea>
+						<textarea class="form-control" name="about"><?php echo $user["about"]; ?></textarea>
 					</div>
 					<div class="mb-3">
 						<label class="form-label">Image</label>
-						<input class="form-control" type="file" id="formFile" />
+						<input class="form-control p-0" name="image" type="file" id="formFile" />
 					</div>
 					<button class="btn" type="submit">
-
 						Submit
 					</button>
 				</form>

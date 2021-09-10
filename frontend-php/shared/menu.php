@@ -19,11 +19,17 @@
 						Show
 					</a>
 				</li>
-				<li class="nav-item">
-					<a href="./profile.php" class="nav-link">
-						Profile
-					</a>
-				</li>
+				<?php
+
+				if (isset($_SESSION["handle"]) && $_SESSION["handle"] != "") {
+					echo "
+		<li class=\"nav-item\">
+			<a href=\"./profile.php?handle=" . $_SESSION["handle"] . "\" class=\"nav-link\">
+				Profile
+			</a>
+		</li>";
+				}
+				?>
 				<li class="nav-item">
 					<a href="./admin.php" class="nav-link">
 						Admin
@@ -50,7 +56,7 @@
 							<hr class="dropdown-divider" />
 						</li>
 						<li>
-							<a class="dropdown-item">
+							<a class="dropdown-item" href="./logout.php">
 								Sign Out <i class="bi bi-box-arrow-right"></i>
 							</a>
 						</li>

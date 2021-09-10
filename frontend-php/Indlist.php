@@ -1,8 +1,12 @@
-
 <?php
-function indList($id)
+function indList($list)
 {
-	echo "
+  var_dump($list);
+
+  $modalId = "\"#listModal-" . $list["id"] . '"';
+  $editModalId = "\"#editListModal-" . $list["id"] . '"';
+
+  echo "
 	<div class=\"col-4 col-md-3 p-1\">
         <div class=\"card text-dark bg-light mb-3\">
           <div class=\"card-header d-flex justify-content-between\">
@@ -10,15 +14,15 @@ function indList($id)
               <button class=\"btn p-0\">
                 <i class=\"bi bi-heart-fill\"></i>
               </button>
-              8
+              " . $list["follow"] . "
             </span>
             <span>
               By
               <a
                 class=\"text-dark\"
-                href={\"/profile?handle=\" + currentList.user.handle}
+                href=\"./profile.php?handle=" . $list["handle"] . "\"
               >
-                @jsdf
+              " . $list["handle"] . "
               </a>
             </span>
           </div>
@@ -27,10 +31,10 @@ function indList($id)
               <button
                 type=\"button\"
                 class=\"btn ps-0\"
-                data-bs-toggle=\"modal\"
-                data-bs-target={\"#exampleModal\" + currentList.id.toString()}
+                onclick='openModal($modalId)'
+              '
               >
-                jsdf
+              " . $list["title"] . "
               </button>
             </h5>
           </div>
@@ -39,9 +43,8 @@ function indList($id)
 
       <div
         class=\"modal fade\"
-        id={\"exampleModal\" + currentList.id.toString()}
-        tabIndex={-1}
-        aria-labelledby=\"authModal\"
+        id=$modalId 
+        tabIndex=\"-1\"
         aria-hidden=\"true\"
       >
         <div class=\"modal-dialog modal-dialog-centered modal-dialog-scrollable\">
@@ -60,8 +63,7 @@ function indList($id)
                     <button
                       class=\"btn p-0\"
                       data-bs-toggle=\"modal\"
-                      data-bs-target={\"#addModal\" + currentList.id.toString()}
-                      data-bs-dismiss=\"modal\"
+                      data-bs-target=\"#addModal\"
                     >
                       <i class=\"bi bi-pencil-square\"></i>
                     </button>
@@ -92,9 +94,12 @@ function indList($id)
             </div>
             <div class=\"modal-body\">
               <div class=\"list-group\">
-                {currentList.shows.map((show, index) => (
-                  <>
-                    <div class=\"d-flex align-items-center\">
+              ";
+
+  echo "
+              {currentList.shows.map((show, index) => (
+                <>
+                <div class=\"d-flex align-items-center\">
                       <div class=\"col-10\">
                         <a
                           href=\"#\"
@@ -121,6 +126,9 @@ function indList($id)
                     </div>
                   </>
                 ))}
+                ";
+
+  echo "
               </div>
             </div>
           </div>
@@ -128,9 +136,8 @@ function indList($id)
       </div>
       <div
         class=\"modal fade\"
-        id={\"addModal\" + currentList.id.toString()}
-        tabIndex={-1}
-        aria-labelledby=\"authModal\"
+        id=$editModalId
+        tabIndex=\"-1\"
         aria-hidden=\"true\"
       >
         <div class=\"modal-dialog modal-dialog-centered modal-dialog-scrollable\">
@@ -205,6 +212,18 @@ function indList($id)
         </div>
       </div>
 	";
-}
-?>
 
+  echo "
+  <script type=\"text/javascript\"> 
+  
+      function openModal(x){
+        console.log(x)
+        var myModal = new bootstrap.Modal(document.getElementById(x), {
+          keyboard: false
+        });
+
+        myModal.toggle();
+      }
+  </script>
+  ";
+}
