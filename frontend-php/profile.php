@@ -87,7 +87,6 @@ if ($user == false) {
 	<h5 class="text-start">@<?php echo $user["handle"]; ?>'s Follows</h5>
 	<div class="d-flex row">
 		<?php
-
 		require_once("./Indlist.php");
 		require_once("../backend/db/watchlist.php");
 
