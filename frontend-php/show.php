@@ -14,7 +14,7 @@ if (!isset($_GET["sid"])) {
 }
 
 $res = retrieveShow($_GET['sid']);
-if (empty($res)) {
+if (empty($res) || ($res["type"] == 0 && $_SESSION["IS_ADMIN"] == 0)) {
 	redirect("./showlist.php");
 }
 $szn = retrieveSeasonList($_GET['sid']);
@@ -26,10 +26,13 @@ $rev = retrieveReviewList($_GET['sid']);
 	<div class="d-flex flex-column justify-content-start align-self-stretch align-items-start me-3 flex-grow-1 ">
 		<h1 class="align-self-center m-2">
 			<?php echo $res['name'] ?>;
-			<button class="btn" data-bs-toggle="modal" data-bs-target="#editShow">
+			<?php
 
-				<i class="bi bi-pencil-square"></i> Edit
-			</button>
+			echo "
+			<a href=\"showedit.php?sid=" . $res["id"] . "\" class=\"btn\">
+				<i class=\"bi bi-pencil-square\"></i> Edit
+			</a>";
+			?>
 		</h1>
 
 		<h6 class="align-self-center mb-4">
@@ -38,7 +41,7 @@ $rev = retrieveReviewList($_GET['sid']);
 		</h6>
 
 		<div class="mb-4 d-flex justify-content-center align-items-center align-self-center border border-4 border-dark rounded shadow-lg">
-			<img src="./images/witcher_poster.jpg" class="dp" />
+			<img src="<?php echo $res["image"] ?>" class="dp" />
 		</div>
 
 		<div class="accordion d-flex flex-column   align-self-stretch " id="accordionExample">

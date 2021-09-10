@@ -5,6 +5,7 @@ require_once("../backend/db/show.php");
 $list_id = -1;
 
 if (isset($_GET["list_id"])) {
+	require_once("../backend/db/watchlist.php");
 	$g = getOneList($_GET["list_id"]);
 
 	if (empty($g) || $g["user_id"] != $_SESSION["id"]) {
@@ -74,7 +75,7 @@ if (isset($_GET["list_id"])) {
 			echo "
 		<tr>
 			<td class=\"col-3 col-md-2 col-lg-1\">
-				<img src=\"./images/img1.jpg\" class=\"img-fluid rounded-start\" alt=\"...\" />
+				<img src=\"" . $val["image"] . "\" class=\"img-fluid rounded-start\" alt=\"...\" />
 			</td>
 			<td>
 				<a class=\"text-decoration-none ps-5 d-flex align-items-center  link-secondary\" href=\"show.php?sid=" . $val['id'] . "\">
@@ -84,13 +85,22 @@ if (isset($_GET["list_id"])) {
 			<td>9.8</td>
 			<td>" . $val['release_date'] . "</td>
 			" .
-				(($g != -1) ? ("<td>
-				<button class=\"text-decoration-none btn link-secondary\">
-					<h5>
-						<i class=\"bi bi-file-plus\"></i>
-					</h5>
-				</button>
-			</td>") : "")
+				(($list_id != -1) ? ("
+				<td>
+				<form method=\"post\"  action=\"./watchlistupdate.php\" id=\"add-to-" . $list_id . "\">
+                    <input type=\"text\" name=\"add_list_to_list_id\" class=\"d-none\" value=\"" .  $list_id . "\" />
+                 
+					<input type=\"text\" name=\"show_id\" class=\"d-none\" value=\"" .  $val["id"] . "\" />
+					
+	   		<button class=\"btn p-0\" type=\"submit\" form=\"add-to-" . $list_id . "\">
+											<h5>
+												<i class=\"bi bi-file-plus\"></i>
+											</h5>
+                    </button>
+                    </form>
+										
+										</td>
+			") : "")
 
 				. "
 		</tr>";

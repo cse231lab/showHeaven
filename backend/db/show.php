@@ -72,20 +72,17 @@ function updateShow($name, $about, $release, $type, $imdb_textfield, $show_id)
 	try {
 
 		$sql = "UPDATE $show 
-		SET `name` = :nm,
-		about = :ab,
-		release_date = :release,
-		`type` = :tp,
-		imdb_textfield = : imdb
-		
-		WHERE id =:showId
-		;";
+		SET `name` =:nm,
+		`about`=:ab,
+		`release_date`=:release,
+		`type`=:tp,
+		`imdb_textfield`=:imdb WHERE id =:showId";
 		// var_dump($sql);
 		$prp = $db->prepare($sql);
 		$prp->execute([
-			'name' => $name, 'about' => $about,
-			'release' => $release, 'type' => $type, 'imdb' => $imdb_textfield,
-			"id" => $show_id
+			'nm' => $name, 'ab' => $about,
+			'release' => $release, 'tp' => $type, 'imdb' => $imdb_textfield,
+			"showId" => $show_id
 		]);
 		// print("Created User $handle.\n");
 	} catch (PDOException $e) {
@@ -102,14 +99,35 @@ function updateShowCover($show_id, $image)
 
 	try {
 
-		$sql = "UPDATE $show SET image=:image WHERE id=:showId";
+		$sql = "UPDATE $show SET image=:img WHERE id=:showId";
+
+		var_dump($sql);
 
 		$prp = $db->prepare($sql);
-		$arr = ['showId' => $show_id, 'image' => $image];
+		$arr = ['showId' => $show_id, 'img' => $image];
 		$prp->execute($arr);
 	} catch (PDOException $e) {
 		echo "Failed to create User <br>";
 		//echo   $e->getMessage(); //Remove or change message in production code
+	}
+}
+
+function getCoverImage($show_id)
+{
+	global $show;
+	global $db;
+
+	try {
+		$sql = "SELECT image from $show where id=$show_id";
+
+		$prp = $db->prepare($sql);
+		$prp->execute();
+		$result = $prp->fetch();
+		return $result;
+	} catch (PDOException $e) {
+		echo "Failed To retrieve User <br>";
+		return "";
+		// echo $e->getMessage(); //Remove or change message in production code
 	}
 }
 
