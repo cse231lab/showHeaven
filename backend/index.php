@@ -4,7 +4,7 @@
 require_once("db/show.php");
 require_once("db/episode.php");
 require_once("db/season.php");
-
+require_once("db/usertable.php");
 
     // createShowTable();
     // createSeasonTable();
