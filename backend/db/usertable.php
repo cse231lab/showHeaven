@@ -203,6 +203,7 @@ function userLogIn($handle, $password)
 		if (!empty($result)) {
 			$_SESSION["handle"] = $handle;
 			$_SESSION["id"] = $result["id"];
+			$_SESSION["IS_ADMIN"] = $result["type"];
 		}
 		return true;
 	} catch (PDOException $e) {

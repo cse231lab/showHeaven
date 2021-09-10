@@ -5,14 +5,20 @@ require_once("../backend/db/season.php");
 require_once("../backend/db/episode.php");
 require_once("../backend/db/review.php");
 require_once("../backend/db/usertable.php");
-	
-	// echo $_GET['sid'].'<br>';
-	$res = retrieveShow($_GET['sid']);
-	$szn = retrieveSeasonList($_GET['sid']);
-	$rev = retrieveReviewList($_GET['sid']);
 
+// echo $_GET['sid'].'<br>';
+require_once("functions.php");
 
+if (!isset($_GET["sid"])) {
+	redirect("./showlist.php");
+}
 
+$res = retrieveShow($_GET['sid']);
+if (empty($res)) {
+	redirect("./showlist.php");
+}
+$szn = retrieveSeasonList($_GET['sid']);
+$rev = retrieveReviewList($_GET['sid']);
 
 ?>
 
@@ -68,33 +74,30 @@ require_once("../backend/db/usertable.php");
 				<div id="collapseSeason" class="accordion-collapse collapse show" aria-labelledby="headingSeason">
 					<div class="accordion-body text-start">
 
-						<?php 
+						<?php
 
-						
 
-						foreach($szn as $x)
-						{
+
+						foreach ($szn as $x) {
 							$epsd = retrieveEpisodeList($x['id']);
 							echo "  <div>
 										<div class=\"p-3 border-bottom border-2 border-dark font-weight-bold\">
-										".$x['title'].'<br>'."
+										" . $x['title'] . '<br>' . "
 										</div>";
-											foreach($epsd as $ep)
-											{
-												echo "
+							foreach ($epsd as $ep) {
+								echo "
 													<div class=\" ps-3 m-2 bg-light bg-gradient \">
-														".$ep['num'].") ".$ep['title']."
+														" . $ep['num'] . ") " . $ep['title'] . "
 													</div>
 													";
-											}
+							}
 							echo " 	</div>";
-							
 						}
 
 						?>
-						
-						
-							
+
+
+
 					</div>
 				</div>
 			</div>
@@ -147,10 +150,9 @@ require_once("../backend/db/usertable.php");
 
 							<i class="bi bi-pencil-square"></i> Add Comment
 						</button>
-						<?php 
+						<?php
 
-						foreach($rev as $x)
-						{
+						foreach ($rev as $x) {
 							$username = retrieveUserById($x['user_id']);
 
 
@@ -159,18 +161,18 @@ require_once("../backend/db/usertable.php");
 								<div class=\"col-2\">
 									<div class=\"d-flex flex-column\">
 										<img class=\"w-100\" src=\"./images/geralt.jpg\" />
-										<span>".'USER:'. $username['name']."</span>
+										<span>" . 'USER:' . $username['name'] . "</span>
 									</div>
 								</div>
 								<div class=\"card-body col-10\">
 									<div class=\"d-flex justify-content-between align-items-center\">
-										<h5 class=\"card-title\"> ".'Rating: '.$x['score']."</h5>
+										<h5 class=\"card-title\"> " . 'Rating: ' . $x['score'] . "</h5>
 										<h6 class=\"card-subtitle text-end mb-2 text-muted\">
-											".$x['created_at']."
+											" . $x['created_at'] . "
 										</h6>
 									</div>
 									<p class=\"card-text\">
-										".$x['text']."
+										" . $x['text'] . "
 										
 									</p>
 									<button class=\"btn\" data-bs-toggle=\"modal\" data-bs-target=\"#editComment\">
@@ -184,7 +186,6 @@ require_once("../backend/db/usertable.php");
 								</div>
 							</div>
 						</div>";
-
 						}
 
 						?>
@@ -219,97 +220,96 @@ require_once("../backend/db/usertable.php");
 									</button>
 								</div>
 							</div>
-						</div>
+					</div>
 
 
-						<div class="card">
-							<div class="row">
-								<div class="col-2">
-									<div class="d-flex flex-column">
-										<img class="w-100" src="./images/geralt.jpg" />
-										<span> Geralt</span>
-									</div>
-								</div>
-								<div class="card-body col-10">
-									<div class="d-flex justify-content-between align-items-center">
-										<h5 class="card-title">Rating: 9.8</h5>
-										<h6 class="card-subtitle text-end mb-2 text-muted">
-											10 min ago
-										</h6>
-									</div>
-									<p class="card-text">
-										Some quick example text to build on the card title and
-										make up the bulk of the card's content.
-									</p>
-									<button class="btn" data-bs-toggle="modal" data-bs-target="#editComment">
-
-										<i class="bi bi-pencil-square"></i> Edit
-									</button>
-									<button class="btn" data-bs-toggle="modal" data-bs-target="#makecomment">
-
-										<i class="bi bi-reply"></i> Reply
-									</button>
+					<div class="card">
+						<div class="row">
+							<div class="col-2">
+								<div class="d-flex flex-column">
+									<img class="w-100" src="./images/geralt.jpg" />
+									<span> Geralt</span>
 								</div>
 							</div>
-						</div>
-
-						<div class="card ms-5">
-							<div class="row">
-								<div class="col-2">
-									<div class="d-flex flex-column">
-										<img class="w-100" src="./images/geralt.jpg" />
-										<span> Geralt</span>
-									</div>
+							<div class="card-body col-10">
+								<div class="d-flex justify-content-between align-items-center">
+									<h5 class="card-title">Rating: 9.8</h5>
+									<h6 class="card-subtitle text-end mb-2 text-muted">
+										10 min ago
+									</h6>
 								</div>
-								<div class="card-body col-10">
-									<div class="d-flex justify-content-between align-items-center">
-										<h5 class="card-title">Replying @Geralt</h5>
-										<h6 class="card-subtitle text-end mb-2 text-muted">
-											10 min ago
-										</h6>
-									</div>
-									<p class="card-text">
-										Some quick example text to build on the card title and
-										make up the bulk of the card's content.
-									</p>
-									<button class="btn" data-bs-toggle="modal" data-bs-target="#editComment">
+								<p class="card-text">
+									Some quick example text to build on the card title and
+									make up the bulk of the card's content.
+								</p>
+								<button class="btn" data-bs-toggle="modal" data-bs-target="#editComment">
 
-										<i class="bi bi-pencil-square"></i> Edit
-									</button>
-									<button class="btn" data-bs-toggle="modal" data-bs-target="#makecomment">
+									<i class="bi bi-pencil-square"></i> Edit
+								</button>
+								<button class="btn" data-bs-toggle="modal" data-bs-target="#makecomment">
 
-										<i class="bi bi-reply"></i> Reply
-									</button>
-								</div>
+									<i class="bi bi-reply"></i> Reply
+								</button>
 							</div>
 						</div>
-						<div class="card">
-							<div class="row">
-								<div class="col-2">
-									<div class="d-flex flex-column">
-										<img class="w-100" src="./images/geralt.jpg" />
-										<span> Geralt</span>
-									</div>
-								</div>
-								<div class="card-body col-10">
-									<div class="align-items-center">
-										<h6 class="card-subtitle text-end mb-2 text-muted">
-											10 min ago
-										</h6>
-									</div>
-									<p class="card-text">
-										Some quick example text to build on the card title and
-										make up the bulk of the card's content.
-									</p>
-									<button class="btn" data-bs-toggle="modal" data-bs-target="#editComment">
+					</div>
 
-										<i class="bi bi-pencil-square"></i> Edit
-									</button>
-									<button class="btn" data-bs-toggle="modal" data-bs-target="#makecomment">
-
-										<i class="bi bi-reply"></i> Reply
-									</button>
+					<div class="card ms-5">
+						<div class="row">
+							<div class="col-2">
+								<div class="d-flex flex-column">
+									<img class="w-100" src="./images/geralt.jpg" />
+									<span> Geralt</span>
 								</div>
+							</div>
+							<div class="card-body col-10">
+								<div class="d-flex justify-content-between align-items-center">
+									<h5 class="card-title">Replying @Geralt</h5>
+									<h6 class="card-subtitle text-end mb-2 text-muted">
+										10 min ago
+									</h6>
+								</div>
+								<p class="card-text">
+									Some quick example text to build on the card title and
+									make up the bulk of the card's content.
+								</p>
+								<button class="btn" data-bs-toggle="modal" data-bs-target="#editComment">
+
+									<i class="bi bi-pencil-square"></i> Edit
+								</button>
+								<button class="btn" data-bs-toggle="modal" data-bs-target="#makecomment">
+
+									<i class="bi bi-reply"></i> Reply
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="card">
+						<div class="row">
+							<div class="col-2">
+								<div class="d-flex flex-column">
+									<img class="w-100" src="./images/geralt.jpg" />
+									<span> Geralt</span>
+								</div>
+							</div>
+							<div class="card-body col-10">
+								<div class="align-items-center">
+									<h6 class="card-subtitle text-end mb-2 text-muted">
+										10 min ago
+									</h6>
+								</div>
+								<p class="card-text">
+									Some quick example text to build on the card title and
+									make up the bulk of the card's content.
+								</p>
+								<button class="btn" data-bs-toggle="modal" data-bs-target="#editComment">
+
+									<i class="bi bi-pencil-square"></i> Edit
+								</button>
+								<button class="btn" data-bs-toggle="modal" data-bs-target="#makecomment">
+
+									<i class="bi bi-reply"></i> Reply
+								</button>
 							</div>
 						</div>
 					</div>
@@ -318,7 +318,8 @@ require_once("../backend/db/usertable.php");
 		</div>
 	</div>
 </div>
- -->
+</div>
+-->
 
 
 <div class="modal fade" id="makecomment" tabIndex="-1" aria-labelledby="authModal" aria-hidden="true">
