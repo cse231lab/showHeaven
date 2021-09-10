@@ -4,6 +4,7 @@ require_once("../backend/db/show.php");
 require_once("../backend/db/season.php");
 require_once("../backend/db/episode.php");
 require_once("../backend/db/review.php");
+require_once("../backend/db/usertable.php");
 	
 	// echo $_GET['sid'].'<br>';
 	$res = retrieveShow($_GET['sid']);
@@ -152,12 +153,13 @@ require_once("../backend/db/review.php");
 						{
 							$username = retrieveUserById($x['user_id']);
 
+
 							echo "<div class=\"card\">
 							<div class=\"row\">
 								<div class=\"col-2\">
 									<div class=\"d-flex flex-column\">
 										<img class=\"w-100\" src=\"./images/geralt.jpg\" />
-										<span>".'USER:'. $x['user_id']."</span>
+										<span>".'USER:'. $username['name']."</span>
 									</div>
 								</div>
 								<div class=\"card-body col-10\">
