@@ -29,12 +29,17 @@
 			</a>
 		</li>";
 				}
-				?>
-				<li class="nav-item">
-					<a href="./admin.php" class="nav-link">
+				if (isset($_SESSION["IS_ADMIN"]) && $_SESSION["IS_ADMIN"] == 1) {
+
+					echo "
+						<li class=\"nav-item\">
+						<a href=\"./admin.php\" class=\"nav-link\">
 						Admin
-					</a>
-				</li>
+						</a>
+						</li>
+						";
+				}
+				?>
 				<li class="nav-item">
 					<a href="./watchlist.php" class="nav-link">
 						list

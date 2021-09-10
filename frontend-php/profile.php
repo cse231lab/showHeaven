@@ -51,9 +51,7 @@ if ($user == false) {
 </div>
 
 <div class="d-flex">
-	<button class="btn" data-bs-toggle="modal" data-bs-target="#requestShow">
-		<i class="bi bi-tv"></i> Request Show
-	</button>
+
 	<button class="btn" data-bs-toggle="modal" data-bs-target="#AddList">
 
 		<i class="bi bi-list"></i> Add List
@@ -100,28 +98,7 @@ if ($user == false) {
 	</div>
 </div>
 
-<div class="modal fade" id="requestShow" tabIndex="-1" aria-labelledby="authModal" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-		<div class="modal-content pb-3">
-			<div class="modal-header">
-				<div class="modal-title d-flex justify-content-between align-items-center w-100">
-					<h4>Add Show</h4>
 
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-			</div>
-			<div class="modal-body">
-				<form action="">
-					<input type="text" class="form-control" placeholder="Tittle" />
-					<button class="btn" type="submit">
-
-						Submit
-					</button>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
 
 <div class="modal fade" id="AddList" tabIndex="-1" aria-labelledby="authModal" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">

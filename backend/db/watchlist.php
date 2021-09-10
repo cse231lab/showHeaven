@@ -119,6 +119,25 @@ function deleteList($id)
 	}
 }
 
+function getOneList($list_id)
+{
+	global $list;
+	global $db;
+
+	try {
+		$sql = "SELECT * from $list where id = $list_id";
+
+		$prp = $db->prepare($sql);
+
+		$prp->execute();
+		$result = $prp->fetch();
+		return $result;
+	} catch (PDOException $e) {
+		echo   $e->getMessage(); //Remove or change message in production code
+		return array();
+	}
+}
+
 function getList($handle = "", $search = "")
 {
 	global $list;
