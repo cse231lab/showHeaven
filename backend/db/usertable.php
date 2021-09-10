@@ -3,6 +3,7 @@
 require_once("./db.php");
 
 
+
 $users = "`Users`";
 
 function createUserTable()
@@ -18,7 +19,7 @@ function createUserTable()
   		`handle` tinytext Unique,
   		`password` tinytext,
   		`image` mediumblob,
-  		`created_at` datetime,
+  		`created_at` datetime DEFAULT CURRENT_TIMESTAMP(),
   		`email` tinytext,
   		PRIMARY KEY (`id`)
 		);";
@@ -64,6 +65,24 @@ function retrieveUser($handle)
 		$sql = "SELECT * from $users where handle=:handle";
 		$prp = $db->prepare($sql);
 		$prp->execute(["handle" => $handle]);
+		$result = $prp->fetch();
+		print("Got user $handle.\n");
+		return $result;
+	} catch (PDOException $e) {
+		echo $e->getMessage(); //Remove or change message in production code
+	}
+	echo "<br>";
+}
+
+function retrieveUserById($user_id)
+{
+	global $users;
+	global $db;
+
+	try {
+		$sql = "SELECT * from $users where id=:id";
+		$prp = $db->prepare($sql);
+		$prp->execute(["id" => $user_id]);
 		$result = $prp->fetch();
 		print("Got user $handle.\n");
 		return $result;

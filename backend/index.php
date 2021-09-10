@@ -4,9 +4,10 @@
 require_once("db/show.php");
 require_once("db/episode.php");
 require_once("db/season.php");
+require_once("db/review.php");
 
 
-    // createShowTable();
+    createShowTable();
     // createSeasonTable();
     // createEpisodeTable();
 
@@ -35,7 +36,15 @@ require_once("db/season.php");
     //     echo $x.'<br>';
     // }
 
-    echo var_dump(retrieveShowList('Wit'));
+    // echo var_dump(retrieveShowList('Wit'));
+    
+    // createReviewTable();
+     // createReview('This is a review',7,1,1);
+     //  createReview('This is a review',5,1,1);
+    // $var = retrieveReviewList(1);
+    // var_dump($var);
+    // deleteReview(1,1);
+
 
    
 
