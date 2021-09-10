@@ -1,0 +1,15 @@
+.profilegrid .dp {
+  width: 500px;
+  height: 375px;
+
+  overflow: hidden;
+}
+.profilegrid .dp img {
+  width: 500px;
+  height: 375px;
+}
+
+.show .dp {
+  width: 800px;
+  height: 450px;
+}
