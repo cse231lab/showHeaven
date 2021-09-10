@@ -211,4 +211,22 @@ function userLogIn($handle, $password)
 		// echo $e->getMessage(); //Remove or change message in production code
 	}
 }
+function retrieveUserById($user_id)
+{
+	global $users;
+	global $db;
+	try {
+		
+		$sql = "SELECT name from $users where id = :id";
+		$prp = $db->prepare($sql);
+		$prp->execute(['id' => $user_id]);
+		$result = $prp->fetch(PDO::FETCH_ASSOC);
+		return $result;
+		
+	} catch (PDOException $e) {
+		echo "Failed To retrieve UserName <br>";
+		return false;
+		// echo $e->getMessage(); //Remove or change message in production code
+	}
+}
 
