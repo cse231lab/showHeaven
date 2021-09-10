@@ -3,10 +3,12 @@ require_once("./shared/header.php");
 require_once("../backend/db/show.php");
 require_once("../backend/db/season.php");
 require_once("../backend/db/episode.php");
+require_once("../backend/db/review.php");
 	
 	// echo $_GET['sid'].'<br>';
 	$res = retrieveShow($_GET['sid']);
 	$szn = retrieveSeasonList($_GET['sid']);
+	$rev = retrieveReviewList($_GET['sid']);
 
 
 
@@ -144,6 +146,80 @@ require_once("../backend/db/episode.php");
 
 							<i class="bi bi-pencil-square"></i> Add Comment
 						</button>
+						<?php 
+
+						foreach($rev as $x)
+						{
+							$username = retrieveUserById($x['user_id']);
+
+							echo "<div class=\"card\">
+							<div class=\"row\">
+								<div class=\"col-2\">
+									<div class=\"d-flex flex-column\">
+										<img class=\"w-100\" src=\"./images/geralt.jpg\" />
+										<span>".'USER:'. $x['user_id']."</span>
+									</div>
+								</div>
+								<div class=\"card-body col-10\">
+									<div class=\"d-flex justify-content-between align-items-center\">
+										<h5 class=\"card-title\"> ".'Rating: '.$x['score']."</h5>
+										<h6 class=\"card-subtitle text-end mb-2 text-muted\">
+											".$x['created_at']."
+										</h6>
+									</div>
+									<p class=\"card-text\">
+										".$x['text']."
+										
+									</p>
+									<button class=\"btn\" data-bs-toggle=\"modal\" data-bs-target=\"#editComment\">
+
+										<i class=\"bi bi-pencil-square\"></i> Edit
+									</button>
+									<button class=\"btn\" data-bs-toggle=\"modal\" data-bs-target=\"#makecomment\">
+
+										<i class=\"bi bi-reply\"></i> Reply
+									</button>
+								</div>
+							</div>
+						</div>";
+
+						}
+
+						?>
+
+
+						<<!-- div class=\"card\">
+							<div class=\"row\">
+								<div class=\"col-2\">
+									<div class=\"d-flex flex-column\">
+										<img class=\"w-100\" src=\"./images/geralt.jpg\" />
+										<span> Geralt</span>
+									</div>
+								</div>
+								<div class=\"card-body col-10\">
+									<div class=\"d-flex justify-content-between align-items-center\">
+										<h5 class=\"card-title\">Rating: 9.8</h5>
+										<h6 class=\"card-subtitle text-end mb-2 text-muted\">
+											10 min ago
+										</h6>
+									</div>
+									<p class=\"card-text\">
+										Some quick example text to build on the card title and
+										make up the bulk of the card's content.
+									</p>
+									<button class=\"btn\" data-bs-toggle=\"modal\" data-bs-target=\"#editComment\">
+
+										<i class=\"bi bi-pencil-square\"></i> Edit
+									</button>
+									<button class=\"btn\" data-bs-toggle=\"modal\" data-bs-target=\"#makecomment\">
+
+										<i class=\"bi bi-reply\"></i> Reply
+									</button>
+								</div>
+							</div>
+						</div>
+
+
 						<div class="card">
 							<div class="row">
 								<div class="col-2">
@@ -174,6 +250,7 @@ require_once("../backend/db/episode.php");
 								</div>
 							</div>
 						</div>
+
 						<div class="card ms-5">
 							<div class="row">
 								<div class="col-2">
@@ -239,7 +316,7 @@ require_once("../backend/db/episode.php");
 		</div>
 	</div>
 </div>
-
+ -->
 
 
 <div class="modal fade" id="makecomment" tabIndex="-1" aria-labelledby="authModal" aria-hidden="true">
