@@ -71,10 +71,13 @@ if ($user == false) {
 		<?php
 
 		require_once("./Indlist.php");
-		indList(69);
-		indList(69);
-		indList(69);
-		indList(69);
+		require_once("../backend/db/watchlist.php");
+
+		$res = getList($user["handle"]);
+
+		foreach ($res as $key => $value) {
+			indList($value);
+		}
 
 		?>
 	</div>
@@ -127,12 +130,10 @@ if ($user == false) {
 				</div>
 			</div>
 			<div class="modal-body">
-				<form action="">
-					<input type="text" class="form-control" placeholder="Tittle" />
-					<button class="btn" type="submit">
-
-						Submit
-					</button>
+				<form action="./watchlistupdate.php" method="POST">
+					<input type="text" name="user_id" class="d-none" value="<?php echo $user["id"]; ?>" />
+					<input type="text" name="title" class="form-control" placeholder="Tittle" />
+					<input class="btn" type="submit" name="addlist">
 				</form>
 			</div>
 		</div>

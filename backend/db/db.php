@@ -4,6 +4,12 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 
+//Table Name
+
+$list = "`List`";
+$list_items = "`List_items`";
+$follow = "`Follow`";
+$users = "`Users`";
 
 try {
 	$dbname = "mydb";

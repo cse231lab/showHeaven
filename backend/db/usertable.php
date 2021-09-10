@@ -3,7 +3,6 @@
 require_once("db.php");
 
 
-$users = "`Users`";
 
 function createUserTable()
 {
@@ -15,12 +14,13 @@ function createUserTable()
   		`type` int DEFAULT 0,
   		`name` tinytext,
   		`about` text,
-  		`handle` tinytext Unique,
+  		`handle` tinytext Unique NOT NULL,
   		`password` tinytext,
   		`image` text,
   		`created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   		`email` tinytext,
   		PRIMARY KEY (`id`)
+			
 		);";
 		$db->exec($sql);
 	} catch (PDOException $e) {

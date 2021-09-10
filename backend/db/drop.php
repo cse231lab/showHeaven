@@ -7,7 +7,7 @@ function dropTable($table)
 {
 	global $db;
 	try {
-		$sql = "DROP table if exists `$table`";
+		$sql = "DROP table if exists $table";
 		$db->exec($sql);
 		print("Dropped $table Table.\n");
 	} catch (PDOException $e) {
@@ -19,3 +19,6 @@ dropTable("Users");
 dropTable("Showz");
 dropTable("Seasons");
 dropTable("Episodes");
+dropTable($list);
+dropTable($list_items);
+dropTable($follow);
