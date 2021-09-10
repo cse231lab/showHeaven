@@ -9,14 +9,11 @@ require_once("../backend/db/review.php");
 	$res = retrieveShow($_GET['sid']);
 	$szn = retrieveSeasonList($_GET['sid']);
 	$rev = retrieveReviewList($_GET['sid']);
-	require_once("../backend/db/usertable.php");
 
 
 
 
 ?>
-
-
 
 <div class="p-3 d-flex flex-column m-auto shadow-lg bg-light border border-2 border-light  align-items-center rounded m-3 justify-content-around show">
 	<div class="d-flex flex-column justify-content-start align-self-stretch align-items-start me-3 flex-grow-1 ">
@@ -154,15 +151,13 @@ require_once("../backend/db/review.php");
 						foreach($rev as $x)
 						{
 							$username = retrieveUserById($x['user_id']);
-							$username = $username['name'];
-							
 
 							echo "<div class=\"card\">
 							<div class=\"row\">
 								<div class=\"col-2\">
 									<div class=\"d-flex flex-column\">
 										<img class=\"w-100\" src=\"./images/geralt.jpg\" />
-										<span>".'USER:'.$username."</span>
+										<span>".'USER:'. $x['user_id']."</span>
 									</div>
 								</div>
 								<div class=\"card-body col-10\">
