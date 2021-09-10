@@ -243,3 +243,19 @@ function deleteListItems($list_id, $show_id)
 		echo   $e->getMessage(); //Remove or change message in production code
 	}
 }
+
+
+function addListItems($list_id, $show_id)
+{
+	global $db;
+	global $list_items;
+
+	try {
+		$sql = "INSERT INTO $list_items(list_id,show_id) value($list_id,$show_id)";
+
+		$prp = $db->prepare($sql);
+		$prp->execute();
+	} catch (PDOException $e) {
+		echo   $e->getMessage(); //Remove or change message in production code
+	}
+}
