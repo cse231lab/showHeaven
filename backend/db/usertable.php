@@ -1,3 +1,4 @@
+
 <?php
 
 require_once("db.php");
@@ -210,3 +211,4 @@ function userLogIn($handle, $password)
 		// echo $e->getMessage(); //Remove or change message in production code
 	}
 }
+

@@ -17,11 +17,13 @@ function createShowTable()
 				  `id` int AUTO_INCREMENT,
 				  `name` varchar(50),
 				  `about` text,
-				  `image` mediumblob,
+				  `image` text,
 				  `release_date` date,
 				  `created_at` datetime DEFAULT CURRENT_TIMESTAMP(),
 				  `updated_at` datetime ON UPDATE CURRENT_TIMESTAMP(),
+				   imdb_textfield text, 
 				  `type` smallint,
+				  
 				  PRIMARY KEY (`id`)
 				);";
 
@@ -38,20 +40,20 @@ createShowTable();
 // createEpisodeTable();
 
 // @Create User
-function createShow($name, $about, $release, $type)
+function createShow($name, $about,$image, $release, $type,$imdb_textfield)
 {
 	global $show;
 	global $db;
 
 	try {
 
-		$sql = "INSERT INTO $show (name,about,release_date,type) 
-		values(:name,:about,:release,:type);";
+		$sql = "INSERT INTO $show (name,about,image,release_date,type,imdb_textfield) 
+		values(:name,:about,:image,:release,:type,:imdb);";
 		// var_dump($sql);
 		$prp = $db->prepare($sql);
 		$prp->execute([
 			'name' => $name, 'about' => $about,
-			'release' => $release, 'type' => $type
+			'release' => $release, 'type' => $type, 'image' => $image, 'imdb' => $imdb_textfield
 		]);
 		// print("Created User $handle.\n");
 	} catch (PDOException $e) {

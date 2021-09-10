@@ -53,7 +53,7 @@ require_once("../backend/db/show.php");
 	</thead>
 	<tbody>
 		<?php
-		$res = retrieveShowList();
+		$res = retrieveShowList('');
 		foreach($res as $val)
 		{
 
