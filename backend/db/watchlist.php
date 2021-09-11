@@ -119,6 +119,25 @@ function deleteList($id)
 	}
 }
 
+function getOneList($list_id)
+{
+	global $list;
+	global $db;
+
+	try {
+		$sql = "SELECT * from $list where id = $list_id";
+
+		$prp = $db->prepare($sql);
+
+		$prp->execute();
+		$result = $prp->fetch();
+		return $result;
+	} catch (PDOException $e) {
+		echo   $e->getMessage(); //Remove or change message in production code
+		return array();
+	}
+}
+
 function getList($handle = "", $search = "")
 {
 	global $list;
@@ -220,6 +239,22 @@ function deleteListItems($list_id, $show_id)
 
 		$prp = $db->prepare($sql);
 		$prp->execute(['listId' => $list_id, 'showId' => $show_id]);
+	} catch (PDOException $e) {
+		echo   $e->getMessage(); //Remove or change message in production code
+	}
+}
+
+
+function addListItems($list_id, $show_id)
+{
+	global $db;
+	global $list_items;
+
+	try {
+		$sql = "INSERT INTO $list_items(list_id,show_id) value($list_id,$show_id)";
+
+		$prp = $db->prepare($sql);
+		$prp->execute();
 	} catch (PDOException $e) {
 		echo   $e->getMessage(); //Remove or change message in production code
 	}

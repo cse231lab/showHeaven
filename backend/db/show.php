@@ -22,7 +22,7 @@ function createShowTable()
 				  `created_at` datetime DEFAULT CURRENT_TIMESTAMP(),
 				  `updated_at` datetime ON UPDATE CURRENT_TIMESTAMP(),
 				   imdb_textfield text, 
-				  `type` smallint,
+				  `type` smallint DEFAULT 0,
 				  
 				  PRIMARY KEY (`id`)
 				);";
@@ -40,20 +40,19 @@ createShowTable();
 // createEpisodeTable();
 
 // @Create User
-function createShow($name, $about,$image, $release, $type,$imdb_textfield)
+function createShow($name)
 {
 	global $show;
 	global $db;
 
 	try {
 
-		$sql = "INSERT INTO $show (name,about,image,release_date,type,imdb_textfield) 
-		values(:name,:about,:image,:release,:type,:imdb);";
+		$sql = "INSERT INTO $show (name,type) 
+		values(:nm,0);";
 		// var_dump($sql);
 		$prp = $db->prepare($sql);
 		$prp->execute([
-			'name' => $name, 'about' => $about,
-			'release' => $release, 'type' => $type, 'image' => $image, 'imdb' => $imdb_textfield
+			'nm' => $name
 		]);
 		// print("Created User $handle.\n");
 	} catch (PDOException $e) {
@@ -63,44 +62,126 @@ function createShow($name, $about,$image, $release, $type,$imdb_textfield)
 	echo "<br>";
 }
 
-// createUser("Abi", "abi", "abi", "abi");
 
-function retrieveShowList($s)
+// @Create User
+function updateShow($name, $about, $release, $type, $imdb_textfield, $show_id)
 {
 	global $show;
 	global $db;
 
-	if($s != '')
-	{
-		try {
-		$sql = "select * from $show WHERE name LIKE '%".$s."%'";
-		$prp = $db->prepare($sql);
-		$prp->execute();
-		$result = $prp->fetchALL(PDO::FETCH_ASSOC);
-		// print("Got season $handle.\n");
-		return $result;
-	} catch (PDOException $e) {
-		echo $e->getMessage(); //Remove or change message in production code
-	}
-	echo "<br>";
-	}
-	else
-	{
-		try {
-		$sql = "select * from $show ";
-		$prp = $db->prepare($sql);
-		$prp->execute();
-		$result = $prp->fetchALL(PDO::FETCH_ASSOC);
-		// print("Got season $handle.\n");
-		return $result;
-	} catch (PDOException $e) {
-		echo $e->getMessage(); //Remove or change message in production code
-	}
-	echo "<br>";
-	}
-	 
+	try {
 
-	
+		$sql = "UPDATE $show 
+		SET `name` =:nm,
+		`about`=:ab,
+		`release_date`=:release,
+		`type`=:tp,
+		`imdb_textfield`=:imdb WHERE id =:showId";
+		// var_dump($sql);
+		$prp = $db->prepare($sql);
+		$prp->execute([
+			'nm' => $name, 'ab' => $about,
+			'release' => $release, 'tp' => $type, 'imdb' => $imdb_textfield,
+			"showId" => $show_id
+		]);
+		// print("Created User $handle.\n");
+	} catch (PDOException $e) {
+		echo "ERERE";
+		echo   $e->getMessage(); //Remove or change message in production code
+	}
+	echo "<br>";
+}
+
+function updateShowCover($show_id, $image)
+{
+	global $show;
+	global $db;
+
+	try {
+
+		$sql = "UPDATE $show SET image=:img WHERE id=:showId";
+
+		var_dump($sql);
+
+		$prp = $db->prepare($sql);
+		$arr = ['showId' => $show_id, 'img' => $image];
+		$prp->execute($arr);
+	} catch (PDOException $e) {
+		echo "Failed to create User <br>";
+		//echo   $e->getMessage(); //Remove or change message in production code
+	}
+}
+
+function getCoverImage($show_id)
+{
+	global $show;
+	global $db;
+
+	try {
+		$sql = "SELECT image from $show where id=$show_id";
+
+		$prp = $db->prepare($sql);
+		$prp->execute();
+		$result = $prp->fetch();
+		return $result;
+	} catch (PDOException $e) {
+		echo "Failed To retrieve User <br>";
+		return "";
+		// echo $e->getMessage(); //Remove or change message in production code
+	}
+}
+
+function deleteShow($show_id)
+{
+	global $show;
+	global $db;
+
+	try {
+
+		$sql = "DELETE from $show WHERE id=:showId";
+
+		$prp = $db->prepare($sql);
+		$arr = ['showId' => $show_id];
+		$prp->execute($arr);
+	} catch (PDOException $e) {
+		echo "Failed to create User <br>";
+		//echo   $e->getMessage(); //Remove or change message in production code
+	}
+}
+
+
+// createUser("Abi", "abi", "abi", "abi");
+
+function retrieveShowList($s, $type = 1)
+{
+	global $show;
+	global $db;
+
+	if ($s != '') {
+		try {
+			$sql = "SELECT * from $show WHERE type=$type and name LIKE '%" . $s . "%'";
+			$prp = $db->prepare($sql);
+			$prp->execute();
+			$result = $prp->fetchALL(PDO::FETCH_ASSOC);
+			// print("Got season $handle.\n");
+			return $result;
+		} catch (PDOException $e) {
+			echo $e->getMessage(); //Remove or change message in production code
+		}
+		echo "<br>";
+	} else {
+		try {
+			$sql = "select * from $show where type=$type";
+			$prp = $db->prepare($sql);
+			$prp->execute();
+			$result = $prp->fetchALL(PDO::FETCH_ASSOC);
+			// print("Got season $handle.\n");
+			return $result;
+		} catch (PDOException $e) {
+			echo $e->getMessage(); //Remove or change message in production code
+		}
+		echo "<br>";
+	}
 }
 
 function retrieveShow($show_id)
@@ -113,7 +194,7 @@ function retrieveShow($show_id)
 		$prp = $db->prepare($sql);
 		$prp->execute(["s_id" => $show_id]);
 		$result = $prp->fetch(PDO::FETCH_ASSOC);
-		
+
 		// print("Got season $handle.\n");
 		return $result;
 	} catch (PDOException $e) {
@@ -131,7 +212,7 @@ function truncShows()
 		$sql = "TRUNCATE $show";
 		$db->exec($sql);
 		// print("Got season $handle.\n");
-		
+
 	} catch (PDOException $e) {
 		echo $e->getMessage(); //Remove or change message in production code
 	}

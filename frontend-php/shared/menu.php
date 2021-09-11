@@ -29,12 +29,17 @@
 			</a>
 		</li>";
 				}
-				?>
-				<li class="nav-item">
-					<a href="./admin.php" class="nav-link">
+				if (isset($_SESSION["IS_ADMIN"]) && $_SESSION["IS_ADMIN"] == 1) {
+
+					echo "
+						<li class=\"nav-item\">
+						<a href=\"./admin.php\" class=\"nav-link\">
 						Admin
-					</a>
-				</li>
+						</a>
+						</li>
+						";
+				}
+				?>
 				<li class="nav-item">
 					<a href="./watchlist.php" class="nav-link">
 						list
@@ -45,21 +50,26 @@
 						<i class="bi bi-person-circle"></i>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-						<li>
-							<a class="dropdown-item">
-								<button type="button" class="btn text-light ps-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
-									Sign in/up
-								</button>
+						<?php
+
+						if (isset($_SESSION["handle"]) && $_SESSION["handle"] == "") {
+							echo "
+							<li>
+							<a class=\"dropdown-item\">
+							<button type=\"button\" class=\"btn text-light ps-0\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal\">
+							Sign in/up
+							</button>
 							</a>
-						</li>
-						<li>
-							<hr class="dropdown-divider" />
-						</li>
-						<li>
-							<a class="dropdown-item" href="./logout.php">
-								Sign Out <i class="bi bi-box-arrow-right"></i>
+							</li>";
+						} else {
+							echo "
+							<li>
+							<a class=\"dropdown-item\" href=\"./logout.php\">
+							Sign Out <i class=\"bi bi-box-arrow-right\"></i>
 							</a>
-						</li>
+							</li>";
+						}
+						?>
 					</ul>
 				</li>
 			</ul>

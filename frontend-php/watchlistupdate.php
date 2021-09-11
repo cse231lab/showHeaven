@@ -16,5 +16,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		deleteListItems(($_POST["delete_list_item"]), ($_POST["delete_list_show_id"]));
 	}
 
+	if (isset($_POST["deleteList"])) {
+		deleteList($_POST["deleteList"]);
+	}
+
+	if (isset($_POST["add_list_to_list_id"]) && isset($_POST["show_id"])) {
+		addListItems(($_POST["add_list_to_list_id"]), ($_POST["show_id"]));
+	}
+
 	redirect($_SERVER['HTTP_REFERER']);
 }
