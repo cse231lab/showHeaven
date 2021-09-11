@@ -62,7 +62,7 @@ function indList($list)
                   " . ((isset($_SESSION["id"]) && $_SESSION["id"] == $list["user_id"]) ?
       ("<span>
                   <form action=\"./watchlistupdate.php\" method=\"POST\">
-                    <input name=\"deleteList\" class=\"d-none\">
+                    <input name=\"deleteList\" value=\"" . $list["id"] . "\" class=\"d-none\">
                     <button class=\"btn p-0 \">
                       <i class=\"bi bi-trash-fill\"></i>
                     </button>
@@ -145,7 +145,6 @@ function indList($list)
                 <button class=\"btn p-0\" type=\"submit\" id=\"delete-list-item-" . $list["id"] . "-" . $value["show_id"] . " \">
                   <i class=\"bi bi-trash-fill\"></i>
                 </button>
-                " . $list["follow"] . "
                 </form>
               </span>
               </div>
