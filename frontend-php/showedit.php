@@ -73,7 +73,7 @@ if (empty($res) || $_SESSION["IS_ADMIN"] != 1) {
 				<input type="text" name="name" class="form-control" required placeholder="Name" value="<?php echo $res["name"]; ?>" />
 			</div>
 			<div class="input-group mb-3">
-				<span class="input-group-text">Title </span>
+				<span class="input-group-text">IMDB ID </span>
 				<input type="text" name="imdb_textfield" class="form-control" placeholder="Name" value="<?php echo $res["imdb_textfield"]; ?>" />
 			</div>
 			<div class="input-group mb-3">
@@ -87,10 +87,6 @@ if (empty($res) || $_SESSION["IS_ADMIN"] != 1) {
 			<div class="input-group mb-3">
 				<span class="input-group-text">Type (0 => private, 1=> public)</span>
 				<input type="text" class="form-control" name="type" value="<?php echo $res["type"] ?>" />
-			</div>
-			<div class="input-group mb-3">
-				<span class="input-group-text">Release date</span>
-				<input type="text" class="form-control" name="release_date" value="<?php echo $res["release_date"] ?>" />
 			</div>
 			<div class="mb-3">
 				<label class="form-label">Description</label>
