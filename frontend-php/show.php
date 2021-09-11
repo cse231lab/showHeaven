@@ -20,6 +20,10 @@ if (empty($res) || ($res["type"] == 0 && $_SESSION["IS_ADMIN"] == 0)) {
 $szn = retrieveSeasonList($_GET['sid']);
 $rev = retrieveReviewList($_GET['sid']);
 
+$revscore = getReviewAverage();
+
+
+
 ?>
 
 <div class="p-3 d-flex flex-column m-auto shadow-lg bg-light border border-2 border-light  align-items-center rounded m-3 justify-content-around show">
@@ -58,7 +62,7 @@ $rev = retrieveReviewList($_GET['sid']);
 							<?php echo $res['about'] ?>;
 						</div>
 						<div class="d-flex flex-column pt-5">
-							<span>Rating : 9.8</span>
+							<span>Rating : <?php echo $revscore['score']."/10" ?></span>
 							<span><?php echo $res['release_date'] ?>;</span>
 						</div>
 					</div>
@@ -149,11 +153,20 @@ $rev = retrieveReviewList($_GET['sid']);
 
 				<div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree">
 					<div class="accordion-body text-start">
-						<button class="btn" data-bs-toggle="modal" data-bs-target="#editComment">
 
-							<i class="bi bi-pencil-square"></i> Add Comment
-						</button>
 						<?php
+							$tmp = getReviewByUser($_SESSION['id']);
+							if($_SESSION['id']!=-1 &&  sizeof($tmp)==0)
+							{
+								echo "	<a class=\"btn btn-light\" href=\"submitreview.php?sid=".$_GET['sid']."\">
+											<i class=\"bi bi-pencil-square\"></i> Add Review
+										</a>";
+							}
+						?>
+						
+						<?php
+
+
 
 						foreach ($rev as $x) {
 							$username = retrieveUserById($x['user_id']);
@@ -177,166 +190,53 @@ $rev = retrieveReviewList($_GET['sid']);
 									<p class=\"card-text\">
 										" . $x['text'] . "
 										
-									</p>
-									<button class=\"btn\" data-bs-toggle=\"modal\" data-bs-target=\"#editComment\">
+									</p>";
+
+									if( $x['user_id']==$_SESSION['id'])
+									{
+										echo "<a class=\"btn\" href=\""."updatereview.php?sid=".$_GET['sid']." \" >
 
 										<i class=\"bi bi-pencil-square\"></i> Edit
-									</button>
-									<button class=\"btn\" data-bs-toggle=\"modal\" data-bs-target=\"#makecomment\">
+									</a>
 
-										<i class=\"bi bi-reply\"></i> Reply
-									</button>
-								</div>
-							</div>
-						</div>";
+									<a class=\"btn\" href=\""."deletereview.php?sid=".$_GET['sid']." \" >
+
+										<i class=\"bi bi-pencil-square\"></i> Delete
+									</a>
+												
+											</div>
+										</div>
+									</div>";
+									}
+									else
+									{
+										echo "	</div>
+										</div>
+									</div>";
+									}
+
+
+									
 						}
-
+						
 						?>
 
 
-						<<!-- div class=\"card\">
-							<div class=\"row\">
-								<div class=\"col-2\">
-									<div class=\"d-flex flex-column\">
-										<img class=\"w-100\" src=\"./images/geralt.jpg\" />
-										<span> Geralt</span>
-									</div>
-								</div>
-								<div class=\"card-body col-10\">
-									<div class=\"d-flex justify-content-between align-items-center\">
-										<h5 class=\"card-title\">Rating: 9.8</h5>
-										<h6 class=\"card-subtitle text-end mb-2 text-muted\">
-											10 min ago
-										</h6>
-									</div>
-									<p class=\"card-text\">
-										Some quick example text to build on the card title and
-										make up the bulk of the card's content.
-									</p>
-									<button class=\"btn\" data-bs-toggle=\"modal\" data-bs-target=\"#editComment\">
-
-										<i class=\"bi bi-pencil-square\"></i> Edit
-									</button>
-									<button class=\"btn\" data-bs-toggle=\"modal\" data-bs-target=\"#makecomment\">
-
-										<i class=\"bi bi-reply\"></i> Reply
-									</button>
-								</div>
-							</div>
-					</div>
-
-
-					<div class="card">
-						<div class="row">
-							<div class="col-2">
-								<div class="d-flex flex-column">
-									<img class="w-100" src="./images/geralt.jpg" />
-									<span> Geralt</span>
-								</div>
-							</div>
-							<div class="card-body col-10">
-								<div class="d-flex justify-content-between align-items-center">
-									<h5 class="card-title">Rating: 9.8</h5>
-									<h6 class="card-subtitle text-end mb-2 text-muted">
-										10 min ago
-									</h6>
-								</div>
-								<p class="card-text">
-									Some quick example text to build on the card title and
-									make up the bulk of the card's content.
-								</p>
-								<button class="btn" data-bs-toggle="modal" data-bs-target="#editComment">
-
-									<i class="bi bi-pencil-square"></i> Edit
-								</button>
-								<button class="btn" data-bs-toggle="modal" data-bs-target="#makecomment">
-
-									<i class="bi bi-reply"></i> Reply
-								</button>
-							</div>
-						</div>
-					</div>
-
-					<div class="card ms-5">
-						<div class="row">
-							<div class="col-2">
-								<div class="d-flex flex-column">
-									<img class="w-100" src="./images/geralt.jpg" />
-									<span> Geralt</span>
-								</div>
-							</div>
-							<div class="card-body col-10">
-								<div class="d-flex justify-content-between align-items-center">
-									<h5 class="card-title">Replying @Geralt</h5>
-									<h6 class="card-subtitle text-end mb-2 text-muted">
-										10 min ago
-									</h6>
-								</div>
-								<p class="card-text">
-									Some quick example text to build on the card title and
-									make up the bulk of the card's content.
-								</p>
-								<button class="btn" data-bs-toggle="modal" data-bs-target="#editComment">
-
-									<i class="bi bi-pencil-square"></i> Edit
-								</button>
-								<button class="btn" data-bs-toggle="modal" data-bs-target="#makecomment">
-
-									<i class="bi bi-reply"></i> Reply
-								</button>
-							</div>
-						</div>
-					</div>
-					<div class="card">
-						<div class="row">
-							<div class="col-2">
-								<div class="d-flex flex-column">
-									<img class="w-100" src="./images/geralt.jpg" />
-									<span> Geralt</span>
-								</div>
-							</div>
-							<div class="card-body col-10">
-								<div class="align-items-center">
-									<h6 class="card-subtitle text-end mb-2 text-muted">
-										10 min ago
-									</h6>
-								</div>
-								<p class="card-text">
-									Some quick example text to build on the card title and
-									make up the bulk of the card's content.
-								</p>
-								<button class="btn" data-bs-toggle="modal" data-bs-target="#editComment">
-
-									<i class="bi bi-pencil-square"></i> Edit
-								</button>
-								<button class="btn" data-bs-toggle="modal" data-bs-target="#makecomment">
-
-									<i class="bi bi-reply"></i> Reply
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-</div>
--->
-
+						
 
 <div class="modal fade" id="makecomment" tabIndex="-1" aria-labelledby="authModal" aria-hidden="true">
 	<div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
 		<div class="modal-content pb-3">
-			<form action="">
+			<form action="profile.php" METHOD="GET">
+				<div class="input-group mb-3">
+					<span class="input-group-text">Rating </span>
+					<input type="number" class="form-control" placeholder="0.0" value="Season 1" />
+				</div>
 				<div class="mb-3">
-					<label class="form-label">Comment</label>
+					<label class="form-label">Comment this</label>
 					<textarea class="form-control"></textarea>
 				</div>
-				<button class="btn" type="submit">
-
-					Submit
-				</button>
+				<input class="btn" type="submit">
 			</form>
 		</div>
 	</div>

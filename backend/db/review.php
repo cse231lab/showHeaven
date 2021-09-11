@@ -62,6 +62,28 @@ function createReview($text,$score,$show_id,$user_id)
 	echo "<br>";
 }
 
+function updateReview($text,$score,$show_id,$user_id)
+{
+	global $review;
+	global $db;
+
+	try {
+
+		$sql = "UPDATE $review set score = :score, text = :text WHERE show_id = :show_id AND user_id = :user_id;";
+		// var_dump($sql);
+		$prp = $db->prepare($sql);
+		$prp->execute([
+			'text' => $text, 'score' => $score,
+			'show_id' => $show_id, 'user_id' => $user_id
+		]);
+		// print("Created User $handle.\n");
+	} catch (PDOException $e) {
+		echo "ERERE";
+		echo   $e->getMessage(); //Remove or change message in production code
+	}
+	echo "<br>";
+}
+
 // createUser("Abi", "abi", "abi", "abi");
 
 function retrieveReviewList($show_id)
@@ -112,6 +134,55 @@ function truncReviews()
 		$sql = "TRUNCATE $review";
 		$prp = $db->prepare($sql);
 		$prp->execute();
+		
+		// print("Got season $handle.\n");
+		
+	} catch (PDOException $e) {
+		echo $e->getMessage(); //Remove or change message in production code
+	}
+	// echo "<br>";
+}
+
+function getReviewAverage()
+{
+	global $review;
+	global $db;
+
+		try {
+		$sql = "SELECT AVG(score) as score FROM $review";
+		$prp = $db->prepare($sql);
+		$prp->execute();
+		$result = $prp->fetch(PDO::FETCH_ASSOC);
+		return $result;
+		
+		// print("Got season $handle.\n");
+		
+	} catch (PDOException $e) {
+		echo $e->getMessage(); //Remove or change message in production code
+	}
+	// echo "<br>";
+}
+
+function getReviewByUser($user_id)
+{
+	global $review;
+	global $db;
+
+		try {
+		$sql = "SELECT * FROM $review WHERE user_id=:user_id";
+		$prp = $db->prepare($sql);
+		$prp->execute(['user_id' => $user_id]);
+		$result;
+		if($prp->rowCount()==0)
+		{
+			$result=[];
+		}
+		else
+		{
+			$result = $prp->fetch(PDO::FETCH_ASSOC);	
+		}
+		
+		return $result;
 		
 		// print("Got season $handle.\n");
 		

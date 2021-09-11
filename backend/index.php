@@ -6,19 +6,21 @@ require_once("db/show.php");
 require_once("db/episode.php");
 require_once("db/season.php");
 require_once("db/usertable.php");
+require_once("db/review.php");
 
     // createShowTable();
     // createSeasonTable();
     // createEpisodeTable();
+    // createReviewTable();
 
     // truncShows();
     // createShow('Code Geass', 'This is Code Geass', '2000-01-01', 1);
     // createShow('The Witcher', 'This is The Witcher', '2000-01-01', 1);
     // createShow('Breaking Bad', 'This is Breaking Bad', '2000-01-01', 1);
 
-     // createSeason('Season 4',4,1);
+    // createSeason('Season 1',1,2);
 
-    // createEpisode(4,1,'Episode 4');
+    // createEpisode(5,3,'Episode 5');
     // $res = retrieveEpisodeList(1);
     // var_dump($res);
 
@@ -36,8 +38,11 @@ require_once("db/usertable.php");
     //     echo $x.'<br>';
     // }
 
-    echo var_dump(retrieveShowList('Wit'));
-
+    // echo var_dump(retrieveShowList('Wit'));
+    
+    // session_start();
+    // echo 'session started'.'<br>';
+    // echo $_SESSION['handle'];
    
 
     
