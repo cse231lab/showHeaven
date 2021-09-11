@@ -87,12 +87,12 @@ if (isset($_GET["list_id"])) {
 			" .
 				(($list_id != -1) ? ("
 				<td>
-				<form method=\"post\"  action=\"./watchlistupdate.php\" id=\"add-to-" . $list_id . "\">
+				<form method=\"post\"  action=\"./watchlistupdate.php\" id=\"add-to-" . $list_id . "-show-" . $val["id"] . "\">
                     <input type=\"text\" name=\"add_list_to_list_id\" class=\"d-none\" value=\"" .  $list_id . "\" />
                  
 					<input type=\"text\" name=\"show_id\" class=\"d-none\" value=\"" .  $val["id"] . "\" />
 					
-	   		<button class=\"btn p-0\" type=\"submit\" form=\"add-to-" . $list_id . "\">
+	   		<button class=\"btn p-0\" type=\"submit\" form=\"add-to-" . $list_id . "-show-" . $val["id"] . "\">
 											<h5>
 												<i class=\"bi bi-file-plus\"></i>
 											</h5>
