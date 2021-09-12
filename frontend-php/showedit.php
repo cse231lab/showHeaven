@@ -1,14 +1,37 @@
 <?php
+require_once("../backend/db/tags.php");
+if(isset( $_GET['tag']))
+{
+	deleteTag($_GET['sid'],$_GET['tag']);
+	header("Location: showedit.php?sid=".$_GET['sid']);
+}
 require_once("./shared/header.php");
 require_once("../backend/db/show.php");
 require_once("../backend/db/season.php");
 require_once("../backend/db/episode.php");
 require_once("../backend/db/review.php");
 require_once("../backend/db/usertable.php");
+
 require_once("functions.php");
 
 // echo $_GET['sid'].'<br>';
+
+
+
+
+$tags = getTags($_GET['sid']);
+
+$postTags;
+
+if(isset( $_POST['tags']))
+{
+	$postTags = $_POST['tags'];
+}
+
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
 
 	updateShow($_POST["name"], $_POST["about"], $_POST["release_date"], $_POST["type"], $_POST["imdb_textfield"], $_POST["show_id"]);
 
@@ -36,8 +59,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 	}
 
+
+
 	redirect("./showedit.php?sid=" . $_POST["show_id"]);
 }
+
 require_once("functions.php");
 
 if (!isset($_GET["sid"])) {
@@ -52,6 +78,8 @@ if (empty($res) || $_SESSION["IS_ADMIN"] != 1) {
 
 // $szn = retrieveSeasonList($_GET['sid']);
 // $rev = retrieveReviewList($_GET['sid']);
+	
+
 
 ?>
 
@@ -79,6 +107,21 @@ if (empty($res) || $_SESSION["IS_ADMIN"] != 1) {
 			<div class="input-group mb-3">
 				<span class="input-group-text">Tags</span>
 				<input type="text" class="form-control" name="tags" value="" />
+			</div>
+			<div class='d-flex pb-3'>
+				<?php
+					if($tags!=false)
+					{
+						$tagarr = explode(',', $tags['tags']);
+						foreach ($tagarr as $x) 
+						{
+							echo "<a href=\"showedit.php?sid=".$_GET['sid']."&tag=".$x."\" class=\"me-2 input-group-text border border-dark border-2 text-decoration-none text-uppercase\">".$x."<i class=\"bi bi-x\"></i></a>";
+						}
+					}
+
+				?>
+
+				
 			</div>
 			<div class="input-group mb-3">
 				<span class="input-group-text">Release date</span>

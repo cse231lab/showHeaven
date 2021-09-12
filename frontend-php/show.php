@@ -5,6 +5,7 @@ require_once("../backend/db/season.php");
 require_once("../backend/db/episode.php");
 require_once("../backend/db/review.php");
 require_once("../backend/db/usertable.php");
+require_once("../backend/db/tags.php");
 
 // echo $_GET['sid'].'<br>';
 require_once("functions.php");
@@ -22,6 +23,8 @@ $rev = retrieveReviewList($_GET['sid']);
 
 $revscore = getReviewAverage();
 
+$tags = getTags($_GET['sid']);
+
 
 
 ?>
@@ -29,7 +32,7 @@ $revscore = getReviewAverage();
 <div class="p-3 d-flex flex-column m-auto shadow-lg bg-light border border-2 border-light  align-items-center rounded m-3 justify-content-around show">
 	<div class="d-flex flex-column justify-content-start align-self-stretch align-items-start me-3 flex-grow-1 ">
 		<h1 class="align-self-center m-2">
-			<?php echo $res['name'] ?>;
+			<?php echo $res['name'] ?>
 			<?php
 
 			echo "
@@ -40,8 +43,15 @@ $revscore = getReviewAverage();
 		</h1>
 
 		<h6 class="align-self-center mb-4">
-			Genre: Drama,Fantasy,Action Fiction, Adventure Fiction, Fantasy
-			Television
+			Tags:
+			<?php 
+
+				if($tags != false)
+				{
+					echo $tags['tags'];
+				}
+
+			?>
 		</h6>
 
 		<div class="mb-4 d-flex justify-content-center align-items-center align-self-center border border-4 border-dark rounded shadow-lg">

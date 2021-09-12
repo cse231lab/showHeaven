@@ -7,6 +7,7 @@ require_once("db/episode.php");
 require_once("db/season.php");
 require_once("db/usertable.php");
 require_once("db/review.php");
+require_once("db/tags.php");
 
     // createShowTable();
     // createSeasonTable();
@@ -43,7 +44,12 @@ require_once("db/review.php");
     // session_start();
     // echo 'session started'.'<br>';
     // echo $_SESSION['handle'];
-   
+    
+    // createTagsTable();
+    // createTag(2,'Mecha');
+    // deleteTag(2,'Anime');
+    // $var = getTags(2);
+    
 
     
 
