@@ -28,15 +28,8 @@ require_once("./shared/header.php");
 
 $tags = getTags($_GET['sid']);
 
-$postTags;
 
 
-
-
-if(isset( $_POST['tags']))
-{
-	$postTags = $_POST['tags'];
-}
 
 if(isset( $_GET['tag']))
 {
@@ -47,6 +40,19 @@ if(isset( $_GET['tag']))
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+	if(isset( $_POST['tags']))
+	{
+		$postTags = $_POST['tags'];
+
+		$postTags = explode(',',$postTags);
+
+		foreach($postTags as $x)
+		{
+			 createTag($_GET['sid'],$x);
+		}
+		
+
+	}
 
 	updateShow($_POST["name"], $_POST["about"], $_POST["release_date"], $_POST["type"], $_POST["imdb_textfield"], $_POST["show_id"]);
 

@@ -21,7 +21,7 @@ if (empty($res) || ($res["type"] == 0 && $_SESSION["IS_ADMIN"] == 0)) {
 $szn = retrieveSeasonList($_GET['sid']);
 $rev = retrieveReviewList($_GET['sid']);
 
-$revscore = getReviewAverage();
+$revscore = getReviewAverage($_GET['sid']);
 
 $tags = getTags($_GET['sid']);
 
@@ -165,7 +165,7 @@ $tags = getTags($_GET['sid']);
 					<div class="accordion-body text-start">
 
 						<?php
-							$tmp = getReviewByUser($_SESSION['id']);
+							$tmp = getReviewByUser($_SESSION['id'],$_GET['sid']);
 							if($_SESSION['id']!=-1 &&  sizeof($tmp)==0)
 							{
 								echo "	<a class=\"btn btn-light\" href=\"submitreview.php?sid=".$_GET['sid']."\">
