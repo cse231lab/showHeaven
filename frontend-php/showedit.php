@@ -1,18 +1,25 @@
 <?php
 require_once("../backend/db/tags.php");
-if(isset( $_GET['tag']))
-{
-	deleteTag($_GET['sid'],$_GET['tag']);
-	header("Location: showedit.php?sid=".$_GET['sid']);
-}
-require_once("./shared/header.php");
 require_once("../backend/db/show.php");
 require_once("../backend/db/season.php");
 require_once("../backend/db/episode.php");
 require_once("../backend/db/review.php");
 require_once("../backend/db/usertable.php");
-
 require_once("functions.php");
+
+if(isset( $_GET['tag']))
+{
+	deleteTag($_GET['sid'],$_GET['tag']);
+	header("Location: showedit.php?sid=".$_GET['sid']);
+}
+if(isset( $_GET['del']))
+{
+	deleteShow($_GET['sid']);
+	header("Location: showedit.php?sid=".$_GET['sid']);
+	
+}
+
+require_once("./shared/header.php");
 
 // echo $_GET['sid'].'<br>';
 
@@ -23,11 +30,19 @@ $tags = getTags($_GET['sid']);
 
 $postTags;
 
+
+
+
 if(isset( $_POST['tags']))
 {
 	$postTags = $_POST['tags'];
 }
 
+if(isset( $_GET['tag']))
+{
+	deleteTag($_GET['sid'],$_GET['tag']);
+	
+}
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -85,8 +100,9 @@ if (empty($res) || $_SESSION["IS_ADMIN"] != 1) {
 
 <div class="container">
 	<div class="modal-header">
-		<div class="modal-title d-flex justify-content-between align-items-center w-100">
+		<div class="modal-title d-flex  align-items-center w-100">
 			<h4>Edit Show</h4>
+			<a class="ms-auto me-3" href="./showedit.php?sid=<?php echo $res["id"]; ?>&del=true"> Delete show</a>
 			<a href="./show.php?sid=<?php echo $res["id"]; ?>"> Visit</a>
 		</div>
 	</div>

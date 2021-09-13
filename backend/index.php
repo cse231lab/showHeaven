@@ -3,6 +3,7 @@
 
 // require_once("db/db.php");
 require_once("db/show.php");
+require_once("db/deletedshow.php");
 require_once("db/episode.php");
 require_once("db/season.php");
 require_once("db/usertable.php");
@@ -49,9 +50,12 @@ require_once("db/tags.php");
     // createTag(2,'Mecha');
     // deleteTag(2,'Anime');
     // $var = getTags(2);
+    // $res = retrieveShowList('');
+    // var_dump($res);
     
-    
-    
+    // createDeletedShowTable()
+
+    // deleteShow(7);
 
 
 ?>

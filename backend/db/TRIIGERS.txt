@@ -26,14 +26,14 @@ DELIMITER ;
 
 
 
-TRIGGER for user delete
+TRIGGER for show delete
 
- DELIMITER $$
-	CREATE TRIGGER user_delete
-	BEFORE DELETE ON users
-	FOR EACH ROW
-	BEGIN
-	CALL user_delete_reviews(OLD.id);
-    CALL user_delete_lists(OLD.id);
-	END$$
-DELIMITER ;					
+DELIMITER $$
+CREATE TRIGGER `show_delete` 
+AFTER DELETE ON `showz`
+ FOR EACH ROW 
+ BEGIN
+	INSERT INTO deletedshowz(name,about,image,release_date,created_at,updated_at,imdb_textfield,type)
+    VALUES(OLD.name,OLD.about,OLD.image,OLD.release_date,OLD.created_at,OLD.updated_at,OLD.imdb_textfield,OLD.type);	
+END$$
+DELIMITER ;
