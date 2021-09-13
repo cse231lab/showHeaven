@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 13, 2021 at 12:15 PM
+-- Generation Time: Sep 13, 2021 at 05:17 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.7
 
@@ -44,6 +44,24 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `user_delete_reviews` (IN `id` INT) 
 	END$$
 
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `deletedshowz`
+--
+
+CREATE TABLE `deletedshowz` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `about` text DEFAULT NULL,
+  `image` text DEFAULT NULL,
+  `release_date` date DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
+  `imdb_textfield` text DEFAULT NULL,
+  `type` smallint(6) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -138,8 +156,9 @@ CREATE TABLE `review` (
 --
 
 INSERT INTO `review` (`id`, `text`, `score`, `show_id`, `user_id`, `created_at`, `updated_at`) VALUES
-(37, 'sarwar2\'s review', 5, 2, 2, '2021-09-12 03:37:33', '2021-09-12 03:37:33'),
-(38, 'Bad show', 1, 2, 1, '2021-09-12 03:45:22', '2021-09-12 03:45:22');
+(38, 'Bad show', 1, 2, 1, '2021-09-12 03:45:22', '2021-09-12 03:45:22'),
+(42, 'Amazing show', 7, 2, 2, '2021-09-13 20:10:24', '2021-09-13 20:10:24'),
+(43, 'Terrible show', 2, 3, 2, '2021-09-13 20:12:26', '2021-09-13 20:12:36');
 
 -- --------------------------------------------------------
 
@@ -185,8 +204,19 @@ CREATE TABLE `showz` (
 
 INSERT INTO `showz` (`id`, `name`, `about`, `image`, `release_date`, `created_at`, `updated_at`, `imdb_textfield`, `type`) VALUES
 (2, 'Code Geass', 'This is Code Geass', 'images/show-21631460266168img1.jpg', '2002-01-01', '2021-09-11 21:35:49', '2021-09-12 21:57:10', '', 1),
-(3, 'The Witcher', 'This is the Witcher', NULL, '2000-01-01', '2021-09-11 21:35:49', '2021-09-11 21:45:01', '', 1),
-(4, 'Breaking Bad', 'This is Breaking Bad\r\n', NULL, '2000-01-01', '2021-09-11 21:35:49', '2021-09-11 21:44:45', '', 1);
+(3, 'The Witcher', 'This is the Witcher', 'images/show-31631542939441witcher_poster.jpg', '2000-01-01', '2021-09-11 21:35:49', '2021-09-13 20:22:19', '', 1),
+(18, 'Breaking Bad', 'This is breaking bad', NULL, '0000-00-00', '2021-09-13 19:57:32', '2021-09-13 19:57:40', '', 1);
+
+--
+-- Triggers `showz`
+--
+DELIMITER $$
+CREATE TRIGGER `show_delete` AFTER DELETE ON `showz` FOR EACH ROW BEGIN
+	INSERT INTO deletedshowz(name,about,image,release_date,created_at,updated_at,imdb_textfield,type)
+    VALUES(OLD.name,OLD.about,OLD.image,OLD.release_date,OLD.created_at,OLD.updated_at,OLD.imdb_textfield,OLD.type);	
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -205,7 +235,10 @@ CREATE TABLE `tags` (
 --
 
 INSERT INTO `tags` (`id`, `show_id`, `tag`) VALUES
-(9, 2, 'Mecha');
+(4, 3, 'Dark'),
+(5, 3, 'Medieval'),
+(9, 2, 'Anime'),
+(10, 2, 'Mecha');
 
 -- --------------------------------------------------------
 
@@ -234,19 +267,14 @@ INSERT INTO `users` (`id`, `type`, `name`, `about`, `handle`, `password`, `image
 (2, 0, 'sarwar2', NULL, 'sarwar2', '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', NULL, '2021-09-12 03:37:07', 'sarwar2@gmail.com');
 
 --
--- Triggers `users`
---
-DELIMITER $$
-CREATE TRIGGER `user_delete` BEFORE DELETE ON `users` FOR EACH ROW BEGIN
-	CALL user_delete_reviews(OLD.id);
-    CALL user_delete_lists(OLD.id);
-	END
-$$
-DELIMITER ;
-
---
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `deletedshowz`
+--
+ALTER TABLE `deletedshowz`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `episodes`
@@ -316,6 +344,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `deletedshowz`
+--
+ALTER TABLE `deletedshowz`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `episodes`
 --
 ALTER TABLE `episodes`
@@ -325,13 +359,13 @@ ALTER TABLE `episodes`
 -- AUTO_INCREMENT for table `list`
 --
 ALTER TABLE `list`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `review`
 --
 ALTER TABLE `review`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `seasons`
@@ -343,19 +377,19 @@ ALTER TABLE `seasons`
 -- AUTO_INCREMENT for table `showz`
 --
 ALTER TABLE `showz`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `tags`
 --
 ALTER TABLE `tags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
@@ -404,7 +438,7 @@ ALTER TABLE `seasons`
 -- Constraints for table `tags`
 --
 ALTER TABLE `tags`
-  ADD CONSTRAINT `tags_ibfk_1` FOREIGN KEY (`show_id`) REFERENCES `showz` (`id`);
+  ADD CONSTRAINT `tags_ibfk_1` FOREIGN KEY (`show_id`) REFERENCES `showz` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
