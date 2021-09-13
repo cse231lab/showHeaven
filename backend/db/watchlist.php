@@ -155,17 +155,18 @@ function getList($handle = "", $search = "")
 		from $list l  
 		join $users u on (l.user_id = u.id) ";
 
-		if ($handle != "") $sql .= " where u.handle=:handle ";
-		if ($search != "") $sql .= " where l.title LIKE '%:search%' ";
+		if ($handle != "") $sql .= " where u.handle='$handle' ";
+		if ($search != "") {
+			if ($handle != "") $sql .= " and ";
+			else $sql .= " where ";
+			$sql .= " l.title LIKE '%$search%' ";
+		}
 
 		$sql .= " ORDER BY follow desc ";
 
 		$prp = $db->prepare($sql);
-		$arr = [];
-		if ($handle != "") $arr["handle"] = $handle;
-		if ($search != "") $arr["search"] = $search;
 
-		$prp->execute($arr);
+		$prp->execute();
 		$result = $prp->fetchAll();
 		return $result;
 	} catch (PDOException $e) {
