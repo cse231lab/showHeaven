@@ -1,6 +1,6 @@
 <?php
 
-echo'season included'."<br>";
+
 require_once("db.php");
 
 

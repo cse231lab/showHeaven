@@ -1,6 +1,6 @@
 <?php
 
-echo'episode included'."<br>";
+
 require_once("db.php");
 
 

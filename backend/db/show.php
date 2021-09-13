@@ -5,7 +5,7 @@
 require_once("db.php");
 
 
-$show = "`Showz`";
+$show = "`showz`";
 
 
 function createShowTable()
@@ -35,7 +35,9 @@ function createShowTable()
 	echo "<br>";
 }
 
-createShowTable();
+
+
+
 
 // createEpisodeTable();
 
@@ -144,7 +146,7 @@ function deleteShow($show_id)
 		$arr = ['showId' => $show_id];
 		$prp->execute($arr);
 	} catch (PDOException $e) {
-		echo "Failed to create User <br>";
+		echo "Failed to delete show <br>";
 		//echo   $e->getMessage(); //Remove or change message in production code
 	}
 }
