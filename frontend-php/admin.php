@@ -24,6 +24,9 @@ if (isset($_POST["add_show_name"])) {
 		<button class="btn" data-bs-toggle="modal" data-bs-target="#requestShow">
 			<i class="bi bi-tv"></i> Add Show
 		</button>
+		<a class="btn" href="deletedshowlist.php">
+			<i class="bi bi-tv"></i> Deleted Shows
+		</a>
 	</div>
 
 	<div class="collapse" id="userc">

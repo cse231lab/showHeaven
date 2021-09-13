@@ -1,6 +1,7 @@
 <?php
 require_once("./shared/header.php");
 require_once("../backend/db/show.php");
+require_once("../backend/db/review.php");
 
 $list_id = -1;
 
@@ -71,6 +72,7 @@ if (isset($_GET["list_id"])) {
 		<?php
 		$res = retrieveShowList('');
 		foreach ($res as $val) {
+			$revscore = getReviewAverage($val['id']);
 
 			echo "
 		<tr>
@@ -82,7 +84,7 @@ if (isset($_GET["list_id"])) {
 					<h6>" . $val['name'] . "</h6>
 				</a>
 			</td>
-			<td>9.8</td>
+			<td>".$revscore['score']. "</td>
 			<td>" . $val['release_date'] . "</td>
 			" .
 				(($list_id != -1) ? ("

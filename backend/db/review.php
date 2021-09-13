@@ -143,15 +143,15 @@ function truncReviews()
 	// echo "<br>";
 }
 
-function getReviewAverage()
+function getReviewAverage($show_id)
 {
 	global $review;
 	global $db;
 
 		try {
-		$sql = "SELECT AVG(score) as score FROM $review";
+		$sql = "SELECT AVG(score) as score FROM $review WHERE show_id=:show_id";
 		$prp = $db->prepare($sql);
-		$prp->execute();
+		$prp->execute(['show_id' => $show_id]);
 		$result = $prp->fetch(PDO::FETCH_ASSOC);
 		return $result;
 		
@@ -163,15 +163,15 @@ function getReviewAverage()
 	// echo "<br>";
 }
 
-function getReviewByUser($user_id)
+function getReviewByUser($user_id,$show_id)
 {
 	global $review;
 	global $db;
 
 		try {
-		$sql = "SELECT * FROM $review WHERE user_id=:user_id";
+		$sql = "SELECT * FROM $review WHERE user_id=:user_id AND show_id=:show_id";
 		$prp = $db->prepare($sql);
-		$prp->execute(['user_id' => $user_id]);
+		$prp->execute(['user_id' => $user_id , 'show_id' => $show_id]);
 		$result;
 		if($prp->rowCount()==0)
 		{

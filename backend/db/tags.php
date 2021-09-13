@@ -5,20 +5,20 @@
 require_once("db.php");
 
 
-$tags = "`Tags`";
+$Tags = "`Tags`";
 
 
 function createTagsTable()
 {
-	global $tags;
+	global $Tags;
 	global $db;
 	try {
-		$sql = "CREATE TABLE IF NOT EXISTS $tags (
+		$sql = "CREATE TABLE IF NOT EXISTS $Tags (
 				  `id` int AUTO_INCREMENT,
 				  `show_id` int,
 				  `tag` varchar(20),
 				  PRIMARY KEY (`id`),
-				  FOREIGN KEY (`show_id`) REFERENCES `Showz`(`id`)
+				  FOREIGN KEY (`show_id`) REFERENCES `Showz`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
 				);";
 				
 
@@ -32,10 +32,10 @@ function createTagsTable()
 
 function createTag($show_id,$tag_name)
 {
-	global $tags;
+	global $Tags;
 	global $db;
 	try {
-		$sql = "INSERT INTO $tags(show_id,tag)
+		$sql = "INSERT INTO $Tags (show_id,tag)
 				VALUES(:show_id,:tag);
 				";
 				
@@ -51,10 +51,10 @@ function createTag($show_id,$tag_name)
 
 function deleteTag($show_id,$tag_name)
 {
-	global $tags;
+	global $Tags;
 	global $db;
 	try {
-		$sql = "DELETE FROM tags
+		$sql = "DELETE FROM $Tags
 				WHERE show_id=:show_id AND tag=:tag;";
 				
 		$prp = $db->prepare($sql);
@@ -68,11 +68,11 @@ function deleteTag($show_id,$tag_name)
 
 function getTags($show_id)
 {
-	global $tags;
+	global $Tags;
 	global $db;
 	try {
 		$sql = "SELECT show_id,GROUP_CONCAT(tag) as tags
-				FROM $tags WHERE show_id=:show_id
+				FROM $Tags WHERE show_id=:show_id
 				GROUP BY show_id";
 				
 		$prp = $db->prepare($sql);
