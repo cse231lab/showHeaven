@@ -29,6 +29,7 @@ $tags = getTags($_GET['sid']);
 
 ?>
 
+
 <div class="p-3 d-flex flex-column m-auto shadow-lg bg-light border border-2 border-light  align-items-center rounded m-3 justify-content-around show">
 	<div class="d-flex flex-column justify-content-start align-self-stretch align-items-start me-3 flex-grow-1 ">
 		<h1 class="align-self-center m-2">
@@ -91,15 +92,57 @@ $tags = getTags($_GET['sid']);
 				<div id="collapseSeason" class="accordion-collapse collapse show" aria-labelledby="headingSeason">
 					<div class="accordion-body text-start">
 
+						<?php 
+
+						if(isset($_POST['submitseason']))
+						{
+							
+							
+							if(!empty($_POST['submitseasontitle']) && !empty($_POST['submitseasonnum']) )
+							{
+								// echo 'is set';
+								createSeason($_POST['submitseasontitle'],$_POST['submitseasonnum'], $_GET['sid'] );
+								redirect("./show.php?sid=".$_GET['sid']);
+								die();
+								
+							}
+							else
+							{
+								echo " <div class=\"bg bg-danger \">Please enter all fields </div> ";
+							}
+						}
+
+						?>
+
+						<form class ="d-flex" method="POST" action="show.php?sid=<?php echo $_GET['sid'];?>" >
+							<span class="input-group-text ">Title</span>
+							<input class=" me-2" type="text" name="submitseasontitle">
+							<span class="input-group-text ">Season Number</span>
+							<input class=" me-2" type="number" name="submitseasonnum">
+							<input class="bg-dark bg-gradient text-light" type = "submit" value="Enter" name="submitseason">
+						</form>
+
+						
+
+								
 						<?php
 
-
-
 						foreach ($szn as $x) {
+
+								if(isset($_POST['deleteseason'.$x['id']]))
+								{
+									// echo 'deleteseason'.$x['id'];
+								deleteSeason($x['id']);
+								redirect("./show.php?sid=".$_GET['sid']);
+								die();
+								}
 							$epsd = retrieveEpisodeList($x['id']);
+
 							echo "  <div>
-										<div class=\"p-3 border-bottom border-2 border-dark font-weight-bold\">
-										" . $x['title'] . '<br>' . "
+										<div class=\"d-flex p-3 justify-content-between mt-3 border-bottom border-2 border-dark font-weight-bold\">
+										" . $x['title'] ."<form class =\"d-flex \" method=\"POST\" action=\"show.php?sid=".$_GET['sid']."\" >
+												<input class=\"bg-dark bg-gradient text-light\" type = \"submit\" value=\"Delete season\" name=\"deleteseason".$x['id']."\">
+												</form>".'<br>' . "
 										</div>";
 							foreach ($epsd as $ep) {
 								echo "
@@ -185,7 +228,8 @@ $tags = getTags($_GET['sid']);
 							$username = retrieveUserById($x['user_id']);
 
 
-							echo "<div class=\"card\">
+							echo "
+						<div class=\"card\">
 							<div class=\"row\">
 								<div class=\"col-2\">
 									<div class=\"d-flex flex-column\">
@@ -217,15 +261,19 @@ $tags = getTags($_GET['sid']);
 										<i class=\"bi bi-pencil-square\"></i> Delete
 									</a>
 												
-											</div>
-										</div>
-									</div>";
+								</div>
+							</div>
+						</div>
+											";
 									}
 									else
 									{
-										echo "	</div>
-										</div>
-									</div>";
+										echo "			
+								</div>
+							</div>
+						</div>
+											";
+									
 									}
 
 
@@ -233,170 +281,15 @@ $tags = getTags($_GET['sid']);
 						}
 						
 						?>
-
-
-						
-
-<div class="modal fade" id="makecomment" tabIndex="-1" aria-labelledby="authModal" aria-hidden="true">
-	<div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
-		<div class="modal-content pb-3">
-			<form action="profile.php" METHOD="GET">
-				<div class="input-group mb-3">
-					<span class="input-group-text">Rating </span>
-					<input type="number" class="form-control" placeholder="0.0" value="Season 1" />
-				</div>
-				<div class="mb-3">
-					<label class="form-label">Comment this</label>
-					<textarea class="form-control"></textarea>
-				</div>
-				<input class="btn" type="submit">
-			</form>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="editComment" tabIndex="-1" aria-labelledby="authModal" aria-hidden="true">
-	<div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
-		<div class="modal-content pb-3">
-			<form action="">
-				<div class="input-group mb-3">
-					<span class="input-group-text">Rating </span>
-					<input type="number" class="form-control" placeholder="0.0" value="Season 1" />
-				</div>
-				<div class="mb-3">
-					<label class="form-label">Comment</label>
-					<textarea class="form-control"></textarea>
-				</div>
-				<button class="btn" type="submit">
-
-					Submit
-				</button>
-			</form>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="editShow" tabIndex="-1" aria-labelledby="authModal" aria-hidden="true">
-	<div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
-		<div class="modal-content pb-3">
-			<div class="modal-header">
-				<div class="modal-title d-flex justify-content-between align-items-center w-100">
-					<h4>Edit Show</h4>
-
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-			</div>
-			<div class="modal-body">
-				<form action="">
-					<div class="input-group mb-3">
-						<span class="input-group-text">Title </span>
-						<input type="text" class="form-control" placeholder="Name" value="THE WITCHER" />
 					</div>
-					<div class="input-group mb-3">
-						<span class="input-group-text">Tags</span>
-						<input type="text" class="form-control" value="Drama,Fantasy,Action Fiction, Adventure Fiction, Fantasy Television" />
-					</div>
-					<div class="mb-3">
-						<label class="form-label">Description</label>
-						<textarea class="form-control" value={`The Witcher is a Polish-American fantasy drama streaming television series created by Lauren Schmidt Hissrich, based on the book series of the same name by Polish writer Andrzej Sapkowski. Set on a fictional, medieval-inspired landmass known as "the Continent" , The Witcher explores the legend of Geralt of Rivia and Princess Ciri, who are linked to each other by destiny.[8] It stars Henry Cavill, Freya Allan and Anya Chalotra. The first season consisted of eight episodes and was released on Netflix in its entirety on December 20, 2019. It was based on The Last Wish and Sword of Destiny, which are collections of short stories that precede the main Witcher saga. The second season, consisting of eight episodes, is scheduled to be released on December 17, 2021.[9][10] Geralt of Rivia, a solitary monster hunter, struggles to find his place in a world where people often prove more wicked than beasts.`}></textarea>
-					</div>
-					<div class="mb-3">
-						<label class="form-label">Image</label>
-						<input class="form-control" type="file" id="formFile" />
-					</div>
-					<button class="btn" type="submit">
-
-						Submit
-					</button>
-				</form>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
 
-<div class="modal fade" id="editSeason" tabIndex="-1" aria-labelledby="editSeason" aria-hidden="true">
-	<div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
-		<div class="modal-content pb-3">
-			<div class="modal-header">
-				<div class="modal-title d-flex justify-content-between align-items-center w-100">
-					<h4>
-						Edit Season
-						<button class="btn p-0 ">
-							<i class="bi bi-trash-fill"></i>
-						</button>
-					</h4>
 
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-			</div>
-			<div class="modal-body">
-				<form action="">
-					<div class="input-group mb-3">
-						<span class="input-group-text">Title </span>
-						<input type="text" class="form-control" placeholder="Name" value="Season 1" />
-					</div>
 
-					<h5>Episodes</h5>
-
-					<div class="  h6 d-flex flex-grow-1">
-						<div class="col-10">
-							<input type="text" class="form-control" placeholder="Name" value="The End's Beginning" />
-						</div>
-						<div class="col-2">
-							<button class="btn p-0 ">
-								<i class="bi bi-trash-fill"></i>
-							</button>
-						</div>
-					</div>
-					<div class="  h6 d-flex flex-grow-1">
-						<div class="col-10">
-							<input type="text" class="form-control" placeholder="Name" value="Four Marks" />
-						</div>
-						<div class="col-2">
-							<button class="btn p-0 ">
-								<i class="bi bi-trash-fill"></i>
-							</button>
-						</div>
-					</div>
-					<div class="  h6 d-flex flex-grow-1">
-						<div class="col-10">
-							<input type="text" class="form-control" placeholder="Name" value="Betrayer Moon" />
-						</div>
-						<div class="col-2">
-							<button class="btn p-0 ">
-								<i class="bi bi-trash-fill"></i>
-							</button>
-						</div>
-					</div>
-
-					<button class="btn btn-secondary mb-2" type="submit">
-
-						Submit
-					</button>
-				</form>
-
-				<h5>Add</h5>
-
-				<form action="">
-					<div class="d-flex">
-						<div class="col-7">
-							<div class="input-group mb-3">
-								<span class="input-group-text">Name </span>
-								<input type="text" class="form-control" placeholder="Name" value="Season 1" />
-							</div>
-						</div>
-						<div class="col-5">
-							<button class="btn" type="submit">
-
-								Add Episode <i class="bi bi-plus"></i>
-							</button>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
 
 
 

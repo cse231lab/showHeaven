@@ -58,8 +58,8 @@ require_once("db/tags.php");
     // deleteShow(7);
 
     // createTag(3,'Fantasy');
-
-
+    // echo 'in index.php';
+    // deleteSeason(17);
 
 
 ?>
