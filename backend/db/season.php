@@ -50,6 +50,26 @@ function createSeason($title, $num, $show_id )
 	}
 	echo "<br>";
 }
+function deleteSeason($season_id )
+{
+	global $season;
+	global $db;
+
+	try {
+		
+		$sql = "DELETE FROM  $season 
+				WHERE id = $season_id";
+		// var_dump($sql);
+		$prp = $db->prepare($sql);
+		$prp->execute();
+		// print("Created User $handle.\n");
+	} catch (PDOException $e) {
+		echo "ERERE";
+		echo   $e->getMessage(); //Remove or change message in production code
+	}
+	echo "<br>";
+}
+
 
 // createUser("Abi", "abi", "abi", "abi");
 
