@@ -165,12 +165,15 @@ $tags = getTags($_GET['sid']);
 					<div class="accordion-body text-start">
 
 						<?php
-							$tmp = getReviewByUser($_SESSION['id'],$_GET['sid']);
-							if($_SESSION['id']!=-1 &&  sizeof($tmp)==0)
+							if(isset($_SESSION['id']))
 							{
-								echo "	<a class=\"btn btn-light\" href=\"submitreview.php?sid=".$_GET['sid']."\">
-											<i class=\"bi bi-pencil-square\"></i> Add Review
-										</a>";
+								$tmp = getReviewByUser($_SESSION['id'],$_GET['sid']);
+									if($_SESSION['id']!=-1 &&  sizeof($tmp)==0)
+									{
+										echo "	<a class=\"btn btn-light\" href=\"submitreview.php?sid=".$_GET['sid']."\">
+													<i class=\"bi bi-pencil-square\"></i> Add Review
+												</a>";
+									}
 							}
 						?>
 						

@@ -37,9 +37,8 @@ if (isset($_GET["list_id"])) {
 					Sort By
 				</label>
 				<select class="form-select" id="inputGroupSelect01" name="order">
-					<option value="title">Tittle</option>
+					<option value="title">Title</option>
 					<option value="release">Release</option>
-					<option value="rating">Rating</option>
 				</select>
 			</div>
 		</div>
@@ -70,7 +69,8 @@ if (isset($_GET["list_id"])) {
 	</thead>
 	<tbody>
 		<?php
-		$res = retrieveShowList('');
+
+		$res = retrieveShowListByOrder(isset($_GET['name']) ? $_GET['name'] : '', isset($_GET['order']) ? $_GET['order'] : '', isset($_GET['tags']) ? $_GET['tags'] : '');
 		foreach ($res as $val) {
 			$revscore = getReviewAverage($val['id']);
 
