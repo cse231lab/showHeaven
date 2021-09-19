@@ -52,7 +52,7 @@
 					<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
 						<?php
 
-						if (isset($_SESSION["handle"]) && $_SESSION["handle"] == "") {
+						if (!isset($_SESSION["handle"]) || $_SESSION["handle"] == "") {
 							echo "
 							<li>
 							<a class=\"dropdown-item\">

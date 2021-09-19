@@ -21,14 +21,13 @@ function createEpisodeTable()
 			);";
 
 		$db->exec($sql);
-		print("Created $episode Table.\n");
 	} catch (PDOException $e) {
 		echo $e->getMessage(); //Remove or change message in production code
 	}
 	echo "<br>";
 }
 
-// createEpisodeTable();
+ createEpisodeTable();
 
 // @Create User
 function createEpisode($num, $season_id, $title)

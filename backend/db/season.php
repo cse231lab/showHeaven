@@ -28,21 +28,23 @@ function createSeasonTable()
 	echo "<br>";
 }
 
+createSeasonTable();
+
 // createEpisodeTable();
 
 // @Create User
-function createSeason($title, $num, $show_id )
+function createSeason($title, $num, $show_id)
 {
 	global $season;
 	global $db;
 
 	try {
-		
+
 		$sql = "INSERT INTO $season (title, num, show_id) 
 		values(:title, :num, :show_id)";
 		// var_dump($sql);
 		$prp = $db->prepare($sql);
-		$prp->execute(['num'=>$num,'show_id'=>$show_id,'title'=>$title]);
+		$prp->execute(['num' => $num, 'show_id' => $show_id, 'title' => $title]);
 		// print("Created User $handle.\n");
 	} catch (PDOException $e) {
 		echo "ERERE";
@@ -50,13 +52,13 @@ function createSeason($title, $num, $show_id )
 	}
 	echo "<br>";
 }
-function deleteSeason($season_id )
+function deleteSeason($season_id)
 {
 	global $season;
 	global $db;
 
 	try {
-		
+
 		$sql = "DELETE FROM  $season 
 				WHERE id = $season_id";
 		// var_dump($sql);

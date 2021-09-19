@@ -35,6 +35,8 @@ function createDeletedShowTable()
 	echo "<br>";
 }
 
+createDeletedShowTable();
+
 function retrieveDeletedShowList()
 {
 	global $deletedshow; 

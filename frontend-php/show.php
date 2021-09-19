@@ -36,21 +36,22 @@ $tags = getTags($_GET['sid']);
 			<?php echo $res['name'] ?>
 			<?php
 
-			echo "
-			<a href=\"showedit.php?sid=" . $res["id"] . "\" class=\"btn\">
-				<i class=\"bi bi-pencil-square\"></i> Edit
-			</a>";
+			if (isset($_SESSION["IS_ADMIN"]) && $_SESSION['IS_ADMIN']) {
+				echo "
+	<a href=\"showedit.php?sid=" . $res["id"] . "\" class=\"btn\">
+	<i class=\"bi bi-pencil-square\"></i> Edit
+	</a>";
+			}
 			?>
 		</h1>
 
 		<h6 class="align-self-center mb-4">
 			Tags:
-			<?php 
+			<?php
 
-				if($tags != false)
-				{
-					echo $tags['tags'];
-				}
+			if ($tags != false) {
+				echo $tags['tags'];
+			}
 
 			?>
 		</h6>
@@ -92,123 +93,109 @@ $tags = getTags($_GET['sid']);
 				<div id="collapseSeason" class="accordion-collapse collapse show" aria-labelledby="headingSeason">
 					<div class="accordion-body text-start">
 
-						<?php 
+						<?php
 
-						if(isset($_POST['submitseason']))
-						{
-							
-							
-							if(!empty($_POST['submitseasontitle']) && !empty($_POST['submitseasonnum']) )
-							{
+						if (isset($_POST['submitseason'])) {
+
+
+							if (!empty($_POST['submitseasontitle']) && !empty($_POST['submitseasonnum'])) {
 								// echo 'is set';
-								createSeason($_POST['submitseasontitle'],$_POST['submitseasonnum'], $_GET['sid'] );
-								redirect("./show.php?sid=".$_GET['sid']);
+								createSeason($_POST['submitseasontitle'], $_POST['submitseasonnum'], $_GET['sid']);
+								redirect("./show.php?sid=" . $_GET['sid']);
 								die();
-								
-							}
-							else
-							{
+							} else {
 								echo " <div class=\"bg bg-danger mb-2 \">Please enter all fields </div> ";
 							}
 						}
 
-						
+
 
 						?>
 
-						<?php 
-							if($_SESSION['IS_ADMIN'])
-							{
-								echo "<form class =\"d-flex\" method=\"POST\" action=\"show.php?sid=". $_GET['sid']."\" >
+						<?php
+						if (isset($_SESSION["IS_ADMIN"]) && $_SESSION['IS_ADMIN']) {
+							echo "<form class =\"d-flex\" method=\"POST\" action=\"show.php?sid=" . $_GET['sid'] . "\" >
 							<span class=\"input-group-text \">Title</span>
 							<input class=\" me-2\" type=\"text\" name=\"submitseasontitle\">
 							<span class=\"input-group-text \">Season Number</span>
 							<input class=\" me-2\" type=\"number\" name=\"submitseasonnum\">
 							<input class=\"bg-dark bg-gradient text-light\" type = \"submit\" value=\"Add Season\" name=\"submitseason\">
 						</form>";
-							}
+						}
 
 						?>
-								
+
 						<?php
 
 						foreach ($szn as $x) {
 
-								if(isset($_POST['deleteseason'.$x['id']]))
-								{
-									// echo 'deleteseason'.$x['id'];
+							if (isset($_POST['deleteseason' . $x['id']])) {
+								// echo 'deleteseason'.$x['id'];
 								deleteSeason($x['id']);
-								redirect("./show.php?sid=".$_GET['sid']);
+								redirect("./show.php?sid=" . $_GET['sid']);
 								die();
-								}
+							}
 							$epsd = retrieveEpisodeList($x['id']);
-							$deleteseasonbtn =($_SESSION['IS_ADMIN']) ?  "<form class =\"d-flex  p-1\" method=\"POST\" action=\"show.php?sid=".$_GET['sid']."\" >
-												<input class=\"bg-dark bg-gradient text-light \" type = \"submit\" value=\"Delete season\" name=\"deleteseason".$x['id']."\">
+							$deleteseasonbtn = (isset($_SESSION["IS_ADMIN"]) && $_SESSION['IS_ADMIN']) ?  "<form class =\"d-flex  p-1\" method=\"POST\" action=\"show.php?sid=" . $_GET['sid'] . "\" >
+												<input class=\"bg-dark bg-gradient text-light \" type = \"submit\" value=\"Delete season\" name=\"deleteseason" . $x['id'] . "\">
 												</form>" : '';
 							echo "  <div>
 										<div class=\"d-flex p-3 justify-content-between align-items-center mt-4 bg-light mb-3 border-bottom border-top border-2 border-dark font-weight-bold\">
-										" . $x['title'] .$deleteseasonbtn.'<br>' . "
+										" . $x['title'] . $deleteseasonbtn . '<br>' . "
 										</div>";
 
-										
 
-											if(isset($_POST['submitepisode'.$x['id']]))
-											{
-												
-												
-												if(!empty($_POST['submitepisodetitle']) && !empty($_POST['submitepisodenum']) )
-												{
-													// echo $_POST['submitepisodetitle'].' '.$_POST['submitepisodenum'];
-													
-													createEpisode($_POST['submitepisodenum'], $x['id'] , $_POST['submitepisodetitle']);
-													redirect("./show.php?sid=".$_GET['sid']);
-													die();
-													
-												}
-												else
-												{
-													
-													echo " <div class=\"bg bg-danger mb-2 \">Please enter all fields </div> ";
-												}
-											}
 
-										if($_SESSION['IS_ADMIN'])
-											{
-												echo "	<form class =\"d-flex\" method=\"POST\" action=\"show.php?sid=". $_GET['sid']."\" >
+							if (isset($_POST['submitepisode' . $x['id']])) {
+
+
+								if (!empty($_POST['submitepisodetitle']) && !empty($_POST['submitepisodenum'])) {
+									// echo $_POST['submitepisodetitle'].' '.$_POST['submitepisodenum'];
+
+									createEpisode($_POST['submitepisodenum'], $x['id'], $_POST['submitepisodetitle']);
+									redirect("./show.php?sid=" . $_GET['sid']);
+									die();
+								} else {
+
+									echo " <div class=\"bg bg-danger mb-2 \">Please enter all fields </div> ";
+								}
+							}
+
+							if (isset($_SESSION["IS_ADMIN"]) && $_SESSION['IS_ADMIN']) {
+								echo "	<form class =\"d-flex\" method=\"POST\" action=\"show.php?sid=" . $_GET['sid'] . "\" >
 															<span class=\"input-group-text \">Episode Name</span>
 															<input class=\" me-2\" type=\"text\" name=\"submitepisodetitle\">
 															<span class=\"input-group-text \">Episode Number</span>
 															<input class=\" me-2\" type=\"number\" name=\"submitepisodenum\">
-															<input class=\"bg-dark bg-gradient text-light\" type = \"submit\" value=\"Add Episode\" name=\"submitepisode".$x['id']."\">
+															<input class=\"bg-dark bg-gradient text-light\" type = \"submit\" value=\"Add Episode\" name=\"submitepisode" . $x['id'] . "\">
 														</form>";
-											}
+							}
 
-											
 
-											
+
+
 
 
 							foreach ($epsd as $ep) {
 
 
-									if(isset($_POST['deleteepisode'.$ep['id']]))
-									{
-										// echo 'deleteseason'.$x['id'];
-										deleteEpisode($ep['id']);
-										redirect("./show.php?sid=".$_GET['sid']);
-										die();
-									}
-								
+								if (isset($_POST['deleteepisode' . $ep['id']])) {
+									// echo 'deleteseason'.$x['id'];
+									deleteEpisode($ep['id']);
+									redirect("./show.php?sid=" . $_GET['sid']);
+									die();
+								}
 
-									$deleteepisodebtn =($_SESSION['IS_ADMIN']) ?  "<form class =\"d-flex  p-1\" method=\"POST\" action=\"show.php?sid=".$_GET['sid']."\" >
-												<input class=\"bg-dark bg-gradient text-light \" type = \"submit\" value=\"Delete episode\" name=\"deleteepisode".$ep['id']."\">
+
+								$deleteepisodebtn = (isset($_SESSION["IS_ADMIN"]) && $_SESSION['IS_ADMIN']) ?  "<form class =\"d-flex  p-1\" method=\"POST\" action=\"show.php?sid=" . $_GET['sid'] . "\" >
+												<input class=\"bg-dark bg-gradient text-light \" type = \"submit\" value=\"Delete episode\" name=\"deleteepisode" . $ep['id'] . "\">
 												</form>" : '';
 
 								echo "
 													<div class=\" d-flex justify-content-start align-items-center ps-3  m-2 bg-light bg-gradient \">
-														" . $ep['num'] . ") " . $ep['title']. "
+														" . $ep['num'] . ") " . $ep['title'] . "
 														<div class=\" ps-3 \">
-														".$deleteepisodebtn."
+														" . $deleteepisodebtn . "
 														</div>
 													</div>
 													";
@@ -234,7 +221,7 @@ $tags = getTags($_GET['sid']);
 				</h2>
 
 				<div id="collapsecast" class="accordion-collapse collapse show" aria-labelledby="headingTwo">
-					<div class="accordion-body row text-start">
+					<div class="accordion-body row text-start" id="cast-content" data-show_imdb="<?php echo $res["imdb_textfield"]; ?>">
 						<div class="col-3 mb-1 me-1">
 							<div class="card">
 								<img class="w-100" src="./images/geralt.jpg" />
@@ -255,6 +242,41 @@ $tags = getTags($_GET['sid']);
 						</div>
 					</div>
 				</div>
+				<script type="text/javascript">
+					(function() {
+						let d = document.querySelector("#cast-content");
+						let apikey = "7c8b48b8787a5f4df8b62b35aeefc6e7";
+						let showid = d.getAttribute("data-show_imdb");
+
+						fetch(`https://api.themoviedb.org/3/tv/${showid}/credits?api_key=${apikey}&language=en-US`)
+							.then(response => response.json())
+							.then(data => {
+								console.log(data)
+								let f = "";
+
+								for (let cast of data.cast) {
+									let curr = `
+									<div class="col-3 p-1">
+							<div class="card">
+								<img class="w-100" src="https://image.tmdb.org/t/p/original/${cast.profile_path}" />
+								<div class="card-body">
+									<h5 class="card-title">${cast.character}</h5>
+									<p class="card-text">${cast.name}</p>
+								</div>
+							</div>
+						</div>
+									`;
+
+									f += curr;
+								}
+
+								d.innerHTML = f;
+							})
+							.catch(err => {
+								console.error(err);
+							});
+					})();
+				</script>
 			</div>
 		</div>
 
@@ -270,18 +292,16 @@ $tags = getTags($_GET['sid']);
 					<div class="accordion-body text-start">
 
 						<?php
-							if(isset($_SESSION['id']))
-							{
-								$tmp = getReviewByUser($_SESSION['id'],$_GET['sid']);
-									if($_SESSION['id']!=-1 &&  sizeof($tmp)==0)
-									{
-										echo "	<a class=\"btn btn-light\" href=\"submitreview.php?sid=".$_GET['sid']."\">
+						if (isset($_SESSION['id'])) {
+							$tmp = getReviewByUser($_SESSION['id'], $_GET['sid']);
+							if ($_SESSION['id'] != -1 &&  sizeof($tmp) == 0) {
+								echo "	<a class=\"btn btn-light\" href=\"submitreview.php?sid=" . $_GET['sid'] . "\">
 													<i class=\"bi bi-pencil-square\"></i> Add Review
 												</a>";
-									}
 							}
+						}
 						?>
-						
+
 						<?php
 
 
@@ -295,8 +315,8 @@ $tags = getTags($_GET['sid']);
 							<div class=\"row\">
 								<div class=\"col-2\">
 									<div class=\"d-flex flex-column\">
-										<img class=\"w-100\" src=\"./images/geralt.jpg\" />
-										<span>" . 'USER:' . $username['name'] . "</span>
+										<img class=\"w-100\" src=\"" . $username["image"] . "\" />
+										<span class=\"ps-1\">  " . $username['name'] . "</span>
 									</div>
 								</div>
 								<div class=\"card-body col-10\">
@@ -311,14 +331,13 @@ $tags = getTags($_GET['sid']);
 										
 									</p>";
 
-									if( $x['user_id']==$_SESSION['id'])
-									{
-										echo "<a class=\"btn\" href=\""."updatereview.php?sid=".$_GET['sid']." \" >
+							if ($x['user_id'] == $_SESSION['id']) {
+								echo "<a class=\"btn\" href=\"" . "updatereview.php?sid=" . $_GET['sid'] . " \" >
 
 										<i class=\"bi bi-pencil-square\"></i> Edit
 									</a>
 
-									<a class=\"btn\" href=\""."deletereview.php?sid=".$_GET['sid']." \" >
+									<a class=\"btn\" href=\"" . "deletereview.php?sid=" . $_GET['sid'] . " \" >
 
 										<i class=\"bi bi-pencil-square\"></i> Delete
 									</a>
@@ -327,21 +346,15 @@ $tags = getTags($_GET['sid']);
 							</div>
 						</div>
 											";
-									}
-									else
-									{
-										echo "			
+							} else {
+								echo "			
 								</div>
 							</div>
 						</div>
 											";
-									
-									}
-
-
-									
+							}
 						}
-						
+
 						?>
 					</div>
 				</div>

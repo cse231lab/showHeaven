@@ -11,6 +11,8 @@ $list_items = "`List_items`";
 $follow = "`Follow`";
 $users = "`Users`";
 
+$tags = "`Tags`";
+
 try {
 	$dbname = "mydb";
 	$db = new PDO("mysql:host=$servername", $username, $password);
@@ -25,4 +27,3 @@ try {
 } catch (PDOException $e) {
 	echo "connection failed: " . $e->getMessage();
 }
-
