@@ -50,18 +50,26 @@ if ($user == false) {
 	</div>
 </div>
 
-<div class="d-flex">
+<?php
 
-	<button class="btn" data-bs-toggle="modal" data-bs-target="#AddList">
+if (isset($_SESSION["handle"]) && $_SESSION["handle"] == $handle) {
 
-		<i class="bi bi-list"></i> Add List
+	echo "
+	<div class=\"d-flex\">
+	
+	<button class=\"btn\" data-bs-toggle=\"modal\" data-bs-target=\"#AddList\">
+	
+	<i class=\"bi bi-list\"></i> Add List
 	</button>
-
-	<button class="btn" data-bs-toggle="modal" data-bs-target="#editP">
-
-		<i class="bi bi-person-lines-fill"></i> Edit Profile
+	
+	<button class=\"btn\" data-bs-toggle=\"modal\" data-bs-target=\"#editP\">
+	
+	<i class=\"bi bi-person-lines-fill\"></i> Edit Profile
 	</button>
-</div>
+	</div>
+	";
+}
+?>
 
 <div class="d-flex flex-column">
 	<h5 class="text-start">@<?php echo $user["handle"]; ?>'s Lists</h5>
