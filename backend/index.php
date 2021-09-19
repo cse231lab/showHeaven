@@ -60,6 +60,7 @@ require_once("db/tags.php");
     // createTag(3,'Fantasy');
     // echo 'in index.php';
     // deleteSeason(17);
+    // createEpisode(5,3,'episode 5');
 
 
 ?>

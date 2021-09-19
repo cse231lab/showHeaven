@@ -51,6 +51,26 @@ function createEpisode($num, $season_id, $title)
 	echo "<br>";
 }
 
+function deleteEpisode($episode_id)
+{
+	global $episode;
+	global $db;
+
+	try {
+		
+		$sql = "DELETE FROM $episode WHERE id=$episode_id";
+		// var_dump($sql);
+		$prp = $db->prepare($sql);
+		$prp->execute();
+		// print("Created User $handle.\n");
+	} catch (PDOException $e) {
+		echo "ERERE";
+		echo   $e->getMessage(); //Remove or change message in production code
+	}
+	echo "<br>";
+}
+
+
 // createUser("Abi", "abi", "abi", "abi");
 
 function retrieveEpisodeList($season_id)
