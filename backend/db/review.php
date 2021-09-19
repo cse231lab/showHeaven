@@ -13,7 +13,7 @@ function createReviewTable()
 	global $review;
 	global $db;
 	try {
-		$sql = "CREATE TABLE `review` (
+		$sql = "CREATE TABLE IF NOT EXISTS `review` (
 				  `id` int AUTO_INCREMENT,
 				  `text` text,
 				  `score` tinyint,
@@ -34,7 +34,7 @@ function createReviewTable()
 	echo "<br>";
 }
 
-
+createReviewTable();
 
 // createEpisodeTable();
 

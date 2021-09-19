@@ -123,7 +123,7 @@ if (empty($res) || $_SESSION["IS_ADMIN"] != 1) {
 				<input type="text" name="name" class="form-control" required placeholder="Name" value="<?php echo $res["name"]; ?>" />
 			</div>
 			<div class="input-group mb-3">
-				<span class="input-group-text">IMDB ID </span>
+				<span class="input-group-text">TMDB id</span>
 				<input type="text" name="imdb_textfield" class="form-control" placeholder="Name" value="<?php echo $res["imdb_textfield"]; ?>" />
 			</div>
 			<div class="input-group mb-3">

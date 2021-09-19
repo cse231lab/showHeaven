@@ -25,9 +25,6 @@
 							</div>
 
 							<div class="valid-feedback">Looks good!</div>
-							<button class="btn" type="submit">
-								Forgot Password
-							</button>
 
 
 							<button class="btn btn-secondary" type="submit">

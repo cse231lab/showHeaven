@@ -35,7 +35,7 @@ function createShowTable()
 	echo "<br>";
 }
 
-
+createShowTable();
 
 
 
@@ -186,47 +186,42 @@ function retrieveShowList($s, $type = 1)
 	}
 }
 
-function retrieveShowListByOrder($s='',$orderby='',$tagfilter='')
+function retrieveShowListByOrder($s = '', $orderby = '', $tagfilter = '')
 {
 	global $show;
 	global $db;
 	$type = 1;
-	
-	if($tagfilter != '')
-	{
-			$tagfilter = explode(',', $tagfilter);
-			$str='';
-			// var_dump($tagfilter);
-			foreach ($tagfilter as $tg) 
-			{
-				$str = $str .'\''.$tg.'\',';
-			}
-			$str = substr($str,0,strlen($str)-1);
+
+	if ($tagfilter != '') {
+		$tagfilter = explode(',', $tagfilter);
+		$str = '';
+		// var_dump($tagfilter);
+		foreach ($tagfilter as $tg) {
+			$str = $str . '\'' . $tg . '\',';
+		}
+		$str = substr($str, 0, strlen($str) - 1);
 	}
 
-	$cs = ($s != '') ? ' and name LIKE \'%'.$s.'%\' ' : ' '; 
-	$co = ($orderby != '') ? ' ORDER BY  '. ($orderby=='title'?'name':'release_date') .' ' : ' '; 
-	$ct = ($tagfilter != '') ? ' and tag in ('.$str.') ' : ' '; 
-	
-	
-	
+	$cs = ($s != '') ? ' and name LIKE \'%' . $s . '%\' ' : ' ';
+	$co = ($orderby != '') ? ' ORDER BY  ' . ($orderby == 'title' ? 'name' : 'release_date') . ' ' : ' ';
+	$ct = ($tagfilter != '') ? ' and tag in (' . $str . ') ' : ' ';
 
-	
-		try {
-			$sql = "SELECT s.id as id,name,about,image,release_date,created_at,updated_at,imdb_textfield,type from $show as s LEFT OUTER JOIN tags as t ON s.id= t.show_id WHERE type=$type ".$cs.$ct."GROUP BY s.id ".$co.";";
-			// echo $sql;
-			$prp = $db->prepare($sql);
-			$prp->execute();
-			$result = $prp->fetchALL(PDO::FETCH_ASSOC);
-			// print("Got season $handle.\n");
-			return $result;
-			} 
-			catch (PDOException $e) 
-			{
-				echo $e->getMessage(); //Remove or change message in production code
-			}
-			echo "<br>";
-	
+
+
+
+
+	try {
+		$sql = "SELECT s.id as id,name,about,image,release_date,created_at,updated_at,imdb_textfield,type from $show as s LEFT OUTER JOIN tags as t ON s.id= t.show_id WHERE type=$type " . $cs . $ct . "GROUP BY s.id " . $co . ";";
+		// echo $sql;
+		$prp = $db->prepare($sql);
+		$prp->execute();
+		$result = $prp->fetchALL(PDO::FETCH_ASSOC);
+		// print("Got season $handle.\n");
+		return $result;
+	} catch (PDOException $e) {
+		echo $e->getMessage(); //Remove or change message in production code
+	}
+	echo "<br>";
 }
 
 
