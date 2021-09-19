@@ -150,23 +150,7 @@ $tags = getTags($_GET['sid']);
 										" . $x['title'] .$deleteseasonbtn.'<br>' . "
 										</div>";
 
-										if(isset($_POST['submitepisode']))
-											{
-												
-												
-												if(!empty($_POST['submitepisodenum']) && !empty($_POST['submitepisodetitle']) )
-												{
-													// echo 'is set';
-													createEpisode($_POST['submitepisodenum'],$_POST['submitepisodetitle'], $x['id'] );
-													redirect("./show.php?sid=".$_GET['sid']);
-													die();
-													
-												}
-												else
-												{
-													echo " <div class=\"bg bg-danger mb-2 \">Please enter all fields </div> ";
-												}
-											}
+										
 
 											if(isset($_POST['submitepisode'.$x['id']]))
 											{
