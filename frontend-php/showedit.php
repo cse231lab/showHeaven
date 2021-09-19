@@ -40,7 +40,7 @@ if(isset( $_GET['tag']))
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-	if(isset( $_POST['tags']))
+	if(isset( $_POST['tags']) && !empty($_POST['tags']))
 	{
 		$postTags = $_POST['tags'];
 
