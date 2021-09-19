@@ -1,4 +1,4 @@
-			</div>
+			</div class='mt-auto'>
 			<footer class="bg-dark text-light align-bottom mt-auto">
 				<div class="container pt-3 pb-3">
 					@2021 -ShowHeaven

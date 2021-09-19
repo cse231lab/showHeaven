@@ -140,7 +140,7 @@ $tags = getTags($_GET['sid']);
 												<input class=\"bg-dark bg-gradient text-light \" type = \"submit\" value=\"Delete season\" name=\"deleteseason" . $x['id'] . "\">
 												</form>" : '';
 							echo "  <div>
-										<div class=\"d-flex p-3 justify-content-between align-items-center mt-4 bg-light mb-3 border-bottom border-top border-2 border-dark font-weight-bold\">
+										<div class=\"d-flex p-3 justify-content-between align-items-center mt-4 bg-light mb-3 border-bottom border-top border-2 border-dark fs-4\">
 										" . $x['title'] . $deleteseasonbtn . '<br>' . "
 										</div>";
 
@@ -192,7 +192,7 @@ $tags = getTags($_GET['sid']);
 												</form>" : '';
 
 								echo "
-													<div class=\" d-flex justify-content-start align-items-center ps-3  m-2 bg-light bg-gradient \">
+													<div class=\" d-flex justify-content-between align-items-center ps-3  m-2 bg-light bg-gradient \">
 														" . $ep['num'] . ") " . $ep['title'] . "
 														<div class=\" ps-3 \">
 														" . $deleteepisodebtn . "

@@ -14,11 +14,7 @@
 						Show List
 					</a>
 				</li>
-				<li class="nav-item">
-					<a href="./show.php" class="nav-link">
-						Show
-					</a>
-				</li>
+				
 				<?php
 
 				if (isset($_SESSION["handle"]) && $_SESSION["handle"] != "") {
