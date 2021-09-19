@@ -108,22 +108,27 @@ $tags = getTags($_GET['sid']);
 							}
 							else
 							{
-								echo " <div class=\"bg bg-danger \">Please enter all fields </div> ";
+								echo " <div class=\"bg bg-danger mb-2 \">Please enter all fields </div> ";
 							}
 						}
 
-						?>
-
-						<form class ="d-flex" method="POST" action="show.php?sid=<?php echo $_GET['sid'];?>" >
-							<span class="input-group-text ">Title</span>
-							<input class=" me-2" type="text" name="submitseasontitle">
-							<span class="input-group-text ">Season Number</span>
-							<input class=" me-2" type="number" name="submitseasonnum">
-							<input class="bg-dark bg-gradient text-light" type = "submit" value="Enter" name="submitseason">
-						</form>
-
 						
 
+						?>
+
+						<?php 
+							if($_SESSION['IS_ADMIN'])
+							{
+								echo "<form class =\"d-flex\" method=\"POST\" action=\"show.php?sid=". $_GET['sid']."\" >
+							<span class=\"input-group-text \">Title</span>
+							<input class=\" me-2\" type=\"text\" name=\"submitseasontitle\">
+							<span class=\"input-group-text \">Season Number</span>
+							<input class=\" me-2\" type=\"number\" name=\"submitseasonnum\">
+							<input class=\"bg-dark bg-gradient text-light\" type = \"submit\" value=\"Add Season\" name=\"submitseason\">
+						</form>";
+							}
+
+						?>
 								
 						<?php
 
@@ -137,17 +142,90 @@ $tags = getTags($_GET['sid']);
 								die();
 								}
 							$epsd = retrieveEpisodeList($x['id']);
-
+							$deleteseasonbtn =($_SESSION['IS_ADMIN']) ?  "<form class =\"d-flex  p-1\" method=\"POST\" action=\"show.php?sid=".$_GET['sid']."\" >
+												<input class=\"bg-dark bg-gradient text-light \" type = \"submit\" value=\"Delete season\" name=\"deleteseason".$x['id']."\">
+												</form>" : '';
 							echo "  <div>
-										<div class=\"d-flex p-3 justify-content-between mt-3 border-bottom border-2 border-dark font-weight-bold\">
-										" . $x['title'] ."<form class =\"d-flex \" method=\"POST\" action=\"show.php?sid=".$_GET['sid']."\" >
-												<input class=\"bg-dark bg-gradient text-light\" type = \"submit\" value=\"Delete season\" name=\"deleteseason".$x['id']."\">
-												</form>".'<br>' . "
+										<div class=\"d-flex p-3 justify-content-between align-items-center mt-4 bg-light mb-3 border-bottom border-top border-2 border-dark font-weight-bold\">
+										" . $x['title'] .$deleteseasonbtn.'<br>' . "
 										</div>";
+
+										if(isset($_POST['submitepisode']))
+											{
+												
+												
+												if(!empty($_POST['submitepisodenum']) && !empty($_POST['submitepisodetitle']) )
+												{
+													// echo 'is set';
+													createEpisode($_POST['submitepisodenum'],$_POST['submitepisodetitle'], $x['id'] );
+													redirect("./show.php?sid=".$_GET['sid']);
+													die();
+													
+												}
+												else
+												{
+													echo " <div class=\"bg bg-danger mb-2 \">Please enter all fields </div> ";
+												}
+											}
+
+											if(isset($_POST['submitepisode'.$x['id']]))
+											{
+												
+												
+												if(!empty($_POST['submitepisodetitle']) && !empty($_POST['submitepisodenum']) )
+												{
+													// echo $_POST['submitepisodetitle'].' '.$_POST['submitepisodenum'];
+													
+													createEpisode($_POST['submitepisodenum'], $x['id'] , $_POST['submitepisodetitle']);
+													redirect("./show.php?sid=".$_GET['sid']);
+													die();
+													
+												}
+												else
+												{
+													
+													echo " <div class=\"bg bg-danger mb-2 \">Please enter all fields </div> ";
+												}
+											}
+
+										if($_SESSION['IS_ADMIN'])
+											{
+												echo "	<form class =\"d-flex\" method=\"POST\" action=\"show.php?sid=". $_GET['sid']."\" >
+															<span class=\"input-group-text \">Episode Name</span>
+															<input class=\" me-2\" type=\"text\" name=\"submitepisodetitle\">
+															<span class=\"input-group-text \">Episode Number</span>
+															<input class=\" me-2\" type=\"number\" name=\"submitepisodenum\">
+															<input class=\"bg-dark bg-gradient text-light\" type = \"submit\" value=\"Add Episode\" name=\"submitepisode".$x['id']."\">
+														</form>";
+											}
+
+											
+
+											
+
+
 							foreach ($epsd as $ep) {
+
+
+									if(isset($_POST['deleteepisode'.$ep['id']]))
+									{
+										// echo 'deleteseason'.$x['id'];
+										deleteEpisode($ep['id']);
+										redirect("./show.php?sid=".$_GET['sid']);
+										die();
+									}
+								
+
+									$deleteepisodebtn =($_SESSION['IS_ADMIN']) ?  "<form class =\"d-flex  p-1\" method=\"POST\" action=\"show.php?sid=".$_GET['sid']."\" >
+												<input class=\"bg-dark bg-gradient text-light \" type = \"submit\" value=\"Delete episode\" name=\"deleteepisode".$ep['id']."\">
+												</form>" : '';
+
 								echo "
-													<div class=\" ps-3 m-2 bg-light bg-gradient \">
-														" . $ep['num'] . ") " . $ep['title'] . "
+													<div class=\" d-flex justify-content-start align-items-center ps-3  m-2 bg-light bg-gradient \">
+														" . $ep['num'] . ") " . $ep['title']. "
+														<div class=\" ps-3 \">
+														".$deleteepisodebtn."
+														</div>
 													</div>
 													";
 							}
