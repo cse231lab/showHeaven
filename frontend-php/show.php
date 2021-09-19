@@ -70,11 +70,11 @@ $tags = getTags($_GET['sid']);
 				<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne">
 					<div class="accordion-body text-start">
 						<div>
-							<?php echo $res['about'] ?>;
+							<?php echo $res['about'] ?>
 						</div>
 						<div class="d-flex flex-column pt-5">
-							<span>Rating : <?php echo $revscore['score']."/10" ?></span>
-							<span><?php echo $res['release_date'] ?>;</span>
+							<span class="fs-3 border-top border-dark border-2">Rating : <?php echo $revscore['score']."/10" ?></span>
+							<span class="fs-4 ">Release Date: <?php echo $res['release_date'] ?></span>
 						</div>
 					</div>
 				</div>
