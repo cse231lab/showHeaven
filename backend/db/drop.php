@@ -22,3 +22,4 @@ dropTable("Episodes");
 dropTable($list);
 dropTable($list_items);
 dropTable($follow);
+dropTable($tags);
